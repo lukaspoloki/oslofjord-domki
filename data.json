@@ -1,0 +1,349 @@
+{
+  "buildings": {
+    "1": {
+      "lat": 59.231115,
+      "lng": 10.364088
+    },
+    "2": {
+      "lat": 59.231498,
+      "lng": 10.362009
+    },
+    "3": {
+      "lat": 59.23084,
+      "lng": 10.36363
+    },
+    "4": {
+      "lat": 59.23115,
+      "lng": 10.36096
+    },
+    "5": {
+      "lat": 59.230297,
+      "lng": 10.363712
+    },
+    "6": {
+      "lat": 59.230941,
+      "lng": 10.36029
+    },
+    "7": {
+      "lat": 59.229925,
+      "lng": 10.363735
+    },
+    "8": {
+      "lat": 59.231315,
+      "lng": 10.35952
+    },
+    "9": {
+      "lat": 59.228475,
+      "lng": 10.364856
+    },
+    "10": {
+      "lat": 59.230581,
+      "lng": 10.362383
+    },
+    "12": {
+      "lat": 59.230479,
+      "lng": 10.361783
+    },
+    "14": {
+      "lat": 59.230106,
+      "lng": 10.361745
+    },
+    "16": {
+      "lat": 59.229874,
+      "lng": 10.361109
+    },
+    "18": {
+      "lat": 59.229456,
+      "lng": 10.362264
+    },
+    "20": {
+      "lat": 59.229099,
+      "lng": 10.362175
+    },
+    "22": {
+      "lat": 59.228583,
+      "lng": 10.362136
+    },
+    "24": {
+      "lat": 59.22828,
+      "lng": 10.361831
+    }
+  },
+  "apartments": [
+    {
+      "building": "1",
+      "apt": "410",
+      "residents": [
+        "Miriam Polok"
+      ]
+    },
+    {
+      "building": "2",
+      "apt": "308",
+      "residents": [
+        "Sue Czyż"
+      ]
+    },
+    {
+      "building": "2",
+      "apt": "415",
+      "residents": [
+        "Melania Magdicz"
+      ]
+    },
+    {
+      "building": "2",
+      "apt": "417",
+      "residents": [
+        "Natalia Czyż",
+        "Zenia Czyż"
+      ]
+    },
+    {
+      "building": "2",
+      "apt": "502",
+      "residents": [
+        "Sabina Miedziak"
+      ]
+    },
+    {
+      "building": "2",
+      "apt": "507",
+      "residents": [
+        "Oskar Pilch"
+      ]
+    },
+    {
+      "building": "2",
+      "apt": "508",
+      "residents": [
+        "Wika Magdicz"
+      ]
+    },
+    {
+      "building": "2",
+      "apt": "603",
+      "residents": [
+        "Krysia Miedziak"
+      ]
+    },
+    {
+      "building": "3",
+      "apt": "203",
+      "residents": [
+        "Lida Polok",
+        "Jurek Polok"
+      ]
+    },
+    {
+      "building": "3",
+      "apt": "417",
+      "residents": [
+        "Klaudia Czyż"
+      ]
+    },
+    {
+      "building": "3",
+      "apt": "507",
+      "residents": [
+        "Magda Polok"
+      ]
+    },
+    {
+      "building": "3",
+      "apt": "611",
+      "residents": [
+        "Ewa Cieślar"
+      ]
+    },
+    {
+      "building": "4",
+      "apt": "212",
+      "residents": [
+        "Anna K Polok"
+      ]
+    },
+    {
+      "building": "5",
+      "apt": "212",
+      "residents": [
+        "Lidia Pilch"
+      ]
+    },
+    {
+      "building": "5",
+      "apt": "415",
+      "residents": [
+        "Magdzia Cieślar"
+      ]
+    },
+    {
+      "building": "6",
+      "apt": "607",
+      "residents": [
+        "Kasia Szlachta"
+      ]
+    },
+    {
+      "building": "7",
+      "apt": "504",
+      "residents": [
+        "Sabina Pilch"
+      ]
+    },
+    {
+      "building": "8",
+      "apt": "208",
+      "residents": [
+        "Karolina Potarzycka"
+      ]
+    },
+    {
+      "building": "10",
+      "apt": "103",
+      "residents": [
+        "Daria Pilch"
+      ]
+    },
+    {
+      "building": "10",
+      "apt": "202",
+      "residents": [
+        "Lidzia Kędzior"
+      ]
+    },
+    {
+      "building": "10",
+      "apt": "203",
+      "residents": [
+        "Natalia Bujok"
+      ]
+    },
+    {
+      "building": "10",
+      "apt": "502",
+      "residents": [
+        "Oksana Magdicz"
+      ]
+    },
+    {
+      "building": "12",
+      "apt": "409",
+      "residents": [
+        "Irena Wrzecionko"
+      ]
+    },
+    {
+      "building": "12",
+      "apt": "504",
+      "residents": [
+        "Klaudia Frankowska"
+      ]
+    },
+    {
+      "building": "12",
+      "apt": "514",
+      "residents": [
+        "Dorcia Czyż"
+      ]
+    },
+    {
+      "building": "12",
+      "apt": "605",
+      "residents": [
+        "Agusia Polok"
+      ]
+    },
+    {
+      "building": "12",
+      "apt": "611",
+      "residents": [
+        "Marta Nooitgedagt"
+      ]
+    },
+    {
+      "building": "16",
+      "apt": "302",
+      "residents": [
+        "Ula Pilch"
+      ]
+    },
+    {
+      "building": "16",
+      "apt": "406",
+      "residents": [
+        "Marcin Szalbot"
+      ]
+    },
+    {
+      "building": "16",
+      "apt": "510",
+      "residents": [
+        "Marcin Lipowczan"
+      ]
+    },
+    {
+      "building": "18",
+      "apt": "304",
+      "residents": [
+        "Kasia Cieślar"
+      ]
+    },
+    {
+      "building": "18",
+      "apt": "305",
+      "residents": [
+        "Margita Cichy"
+      ]
+    },
+    {
+      "building": "22",
+      "apt": "519",
+      "residents": [
+        "Marzena Fuzi"
+      ]
+    },
+    {
+      "building": "22",
+      "apt": "606",
+      "residents": [
+        "Irma Dziadek"
+      ]
+    },
+    {
+      "building": "24",
+      "apt": "312",
+      "residents": [
+        "Monika Cichy"
+      ]
+    },
+    {
+      "building": "24",
+      "apt": "419",
+      "residents": [
+        "Gosia Czyz"
+      ]
+    },
+    {
+      "building": "24",
+      "apt": "420",
+      "residents": [
+        "Sylvia Nooitgedagt"
+      ]
+    },
+    {
+      "building": "24",
+      "apt": "502",
+      "residents": [
+        "Helene Bake-Kędzior"
+      ]
+    },
+    {
+      "building": "24",
+      "apt": "507",
+      "residents": [
+        "Mazia Szalbot"
+      ]
+    }
+  ]
+}

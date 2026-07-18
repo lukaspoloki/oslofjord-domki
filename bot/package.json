@@ -1,0 +1,9 @@
+{
+  "name": "oslofjord-bot",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Prywatny bot Telegram do zarządzania listą mieszkańców (data.json na GitHubie)",
+  "engines": { "node": ">=18" },
+  "scripts": { "start": "node bot.js" }
+}
