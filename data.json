@@ -387,6 +387,13 @@
     },
     {
       "building": "16",
+      "apt": "506",
+      "residents": [
+        "Marta Lipowczan"
+      ]
+    },
+    {
+      "building": "16",
       "apt": "510",
       "residents": [
         "Marcin Lipowczan"
