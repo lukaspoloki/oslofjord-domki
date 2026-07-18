@@ -185,6 +185,13 @@
     },
     {
       "building": "6",
+      "apt": "302",
+      "residents": [
+        "Sebastian Kędzior"
+      ]
+    },
+    {
+      "building": "6",
       "apt": "607",
       "residents": [
         "Kasia Szlachta"
