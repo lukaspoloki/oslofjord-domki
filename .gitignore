@@ -1,5 +1,8 @@
 .DS_Store
 .env
-bot/.env
 node_modules/
 *.log
+.claude/
+
+# Bot i sekrety — tylko lokalnie / na VPS
+bot/
