@@ -154,10 +154,29 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script type="module">
   // ── dane: data.json (edytowane przez bota Telegram) ──
+  // GitHub Pages trzyma pliki w CDN ~10 min; bierzemy świeży commit i raw po SHA (~1 min).
+  const REPO = "lukaspoloki/oslofjord-domki";
+  async function loadResidents() {
+    try {
+      const commits = await fetch(
+        `https://api.github.com/repos/${REPO}/commits?path=data.json&per_page=1`,
+        { cache: "no-store", headers: { Accept: "application/vnd.github+json" } },
+      ).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+      const sha = commits[0]?.sha;
+      if (!sha) throw new Error("brak commitów");
+      return fetch(
+        `https://raw.githubusercontent.com/${REPO}/${sha}/data.json`,
+        { cache: "no-store" },
+      ).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+    } catch {
+      // lokalny podgląd / awaria API → plik z tego samego hosta
+      return fetch("data.json", { cache: "no-store" })
+        .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+    }
+  }
   let BUILDINGS, APARTMENTS;
   try {
-    ({ buildings: BUILDINGS, apartments: APARTMENTS } =
-      await fetch("data.json").then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }));
+    ({ buildings: BUILDINGS, apartments: APARTMENTS } = await loadResidents());
   } catch (e) {
     document.body.innerHTML =
       '<p style="font-family:sans-serif;padding:2rem;color:#b00">Nie można wczytać <b>data.json</b>.' +
