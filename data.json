@@ -276,6 +276,13 @@
     },
     {
       "building": "16",
+      "apt": "208",
+      "residents": [
+        "Karina Cichy"
+      ]
+    },
+    {
+      "building": "16",
       "apt": "302",
       "residents": [
         "Ula Pilch"
