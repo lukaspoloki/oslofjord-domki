@@ -233,6 +233,13 @@
     },
     {
       "building": "6",
+      "apt": "110",
+      "residents": [
+        "Małgorzata Baczyńska"
+      ]
+    },
+    {
+      "building": "6",
       "apt": "302",
       "residents": [
         "Rachela Kędzior",
