@@ -243,6 +243,13 @@
     },
     {
       "building": "6",
+      "apt": "240",
+      "residents": [
+        "Tomasz Sikora"
+      ]
+    },
+    {
+      "building": "6",
       "apt": "302",
       "residents": [
         "Rachel Kędzior",
