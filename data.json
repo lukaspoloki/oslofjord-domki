@@ -483,6 +483,13 @@
     },
     {
       "building": "24",
+      "apt": "320",
+      "residents": [
+        "Marta Miedziak"
+      ]
+    },
+    {
+      "building": "24",
       "apt": "419",
       "residents": [
         "Gosia Czyz"
