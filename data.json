@@ -195,6 +195,13 @@
     },
     {
       "building": "3",
+      "apt": "513",
+      "residents": [
+        "Marzena Fuzi"
+      ]
+    },
+    {
+      "building": "3",
       "apt": "611",
       "residents": [
         "Daria Cieślar",
