@@ -397,16 +397,6 @@
     },
     {
       "building": "16",
-      "apt": "208",
-      "residents": [
-        "Damian Cichy",
-        "Karina Cichy",
-        "Victor Cichy",
-        "Vincent Cichy"
-      ]
-    },
-    {
-      "building": "16",
       "apt": "302",
       "residents": [
         "Eliasz Pilch",
@@ -469,6 +459,16 @@
       "apt": "606",
       "residents": [
         "Irma Dziadek"
+      ]
+    },
+    {
+      "building": "24",
+      "apt": "308",
+      "residents": [
+        "Damian Cichy",
+        "Karina Cichy",
+        "Victor Cichy",
+        "Vincent Cichy"
       ]
     },
     {
