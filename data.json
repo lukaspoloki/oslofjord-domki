@@ -376,13 +376,6 @@
     },
     {
       "building": "12",
-      "apt": "605",
-      "residents": [
-        "Agusia Polok"
-      ]
-    },
-    {
-      "building": "12",
       "apt": "611",
       "residents": [
         "Kaja Nooitgedagt",
@@ -452,6 +445,13 @@
         "Elena Nowak",
         "Krzysztof Nowak",
         "Margita Nowak"
+      ]
+    },
+    {
+      "building": "22",
+      "apt": "208",
+      "residents": [
+        "Agusia Polok"
       ]
     },
     {
