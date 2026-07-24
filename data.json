@@ -477,6 +477,13 @@
     },
     {
       "building": "24",
+      "apt": "309",
+      "residents": [
+        "Janina Podżorska"
+      ]
+    },
+    {
+      "building": "24",
       "apt": "312",
       "residents": [
         "Marlena Cichy",
