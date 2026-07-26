@@ -532,6 +532,13 @@
     },
     {
       "building": "24",
+      "apt": "422",
+      "residents": [
+        "Kamil Kędzior"
+      ]
+    },
+    {
+      "building": "24",
       "apt": "502",
       "residents": [
         "Helene Bake-Kędzior"
