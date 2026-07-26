@@ -365,6 +365,13 @@
     },
     {
       "building": "12",
+      "apt": "313",
+      "residents": [
+        "Katarzyna Samiec"
+      ]
+    },
+    {
+      "building": "12",
       "apt": "409",
       "residents": [
         "Irena Wrzecionko"
