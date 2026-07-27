@@ -82,15 +82,6 @@
     },
     {
       "building": "2",
-      "apt": "308",
-      "residents": [
-        "Mariusz Czyż",
-        "Pia Czyż",
-        "Sue Czyż"
-      ]
-    },
-    {
-      "building": "2",
       "apt": "415",
       "residents": [
         "Aksel Nooitgedagt",
@@ -473,6 +464,15 @@
         "Klara Polok",
         "Oliver Polok",
         "Stefan Polok"
+      ]
+    },
+    {
+      "building": "22",
+      "apt": "310",
+      "residents": [
+        "Mariusz Czyż",
+        "Pia Czyż",
+        "Sue Czyż"
       ]
     },
     {
