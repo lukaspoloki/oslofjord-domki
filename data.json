@@ -379,6 +379,13 @@
     },
     {
       "building": "12",
+      "apt": "423",
+      "residents": [
+        "Sara Cichy-Polok"
+      ]
+    },
+    {
+      "building": "12",
       "apt": "504",
       "residents": [
         "Klaudia Frankowska"
