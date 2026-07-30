@@ -79,6 +79,10 @@
     display: flex; align-items: center; justify-content: center;
     font-weight: 700; font-size: 14px;
   }
+  .result .badge.rekketun {
+    background: #c47a3a;
+    font-size: 12px;
+  }
   .result .info { min-width: 0; }
   .result .name { font-weight: 600; font-size: 15px; }
   .result .addr { font-size: 12.5px; color: var(--muted); }
@@ -97,6 +101,12 @@
     box-shadow: 0 2px 6px rgba(0,0,0,.35);
     transition: transform .15s ease, background .15s ease;
   }
+  .bldg-icon.rekketun {
+    background: #c47a3a;
+    border-radius: 8px;
+    font-size: 11px;
+    letter-spacing: -0.3px;
+  }
   .bldg-icon.active { background: #ed6362; transform: scale(1.25); z-index: 999; }
   .bldg-count {
     position: absolute; top: -7px; right: -7px;
@@ -106,6 +116,7 @@
     font-size: 10px; font-weight: 700;
     display: flex; align-items: center; justify-content: center;
   }
+  .bldg-icon.rekketun .bldg-count { border-color: #c47a3a; color: #8a4f1a; }
 
   .leaflet-popup-content { margin: 12px 14px; font-family: inherit; }
   .popup-title { font-weight: 700; font-size: 15px; color: var(--brand-900); margin-bottom: 2px; }
@@ -142,7 +153,7 @@
       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
         <circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path>
       </svg>
-      <input id="search" type="search" placeholder="Szukaj osoby… (np. Polok)" autocomplete="off">
+      <input id="search" type="search" placeholder="Szukaj… (Polok, R8, rekketun)" autocomplete="off">
       <button class="clear" id="clearBtn" aria-label="Wyczyść">✕</button>
     </div>
   </header>
@@ -188,6 +199,13 @@
   const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "")
                      .replace(/ł/g, "l").replace(/Ł/g, "L").toLowerCase();
 
+  // Rekketun = budynki z prefiksem R (R2, R4, …) — osobne od zwykłych 2, 4, …
+  const isRekketun = b => /^R\d+$/i.test(b);
+  const bLabel = b => isRekketun(b)
+    ? `Rekketun ${b.toUpperCase()}`
+    : `Oslofjordveien ${b}`;
+  const bShort = b => isRekketun(b) ? b.toUpperCase() : b;
+
   // mieszkania pogrupowane wg budynku
   const byBuilding = {};
   APARTMENTS.forEach(a => {
@@ -200,6 +218,19 @@
     a.residents.map(name => ({ name, b: a.building, apt: a.apt })));
 
   const peopleIn = b => (byBuilding[b] || []).reduce((n, a) => n + a.residents.length, 0);
+
+  function matchesQuery(r, nq) {
+    if (norm(r.name).includes(nq) || r.apt.startsWith(nq)) return true;
+    const b = String(r.b);
+    if (norm(b) === nq || b.toLowerCase() === nq) return true;
+    // "r8" / "rekketun" / "rekketun 8"
+    if (isRekketun(b)) {
+      if (nq === "rekketun" || nq === "r") return true;
+      if (nq === norm(b) || nq === b.slice(1)) return true;
+      if (nq === `rekketun ${b.slice(1)}` || nq === `rekketun ${norm(b)}`) return true;
+    }
+    return false;
+  }
 
   // ── mapa ──
   const map = L.map("map", { zoomControl: false });
@@ -222,19 +253,21 @@
           return `<div class="popup-row${hl}"><span class="names">${names}</span><span class="apt">${a.apt}${floor}</span></div>`;
         }).join("")
       : `<div class="popup-empty">Brak zgłoszonych osób</div>`;
-    return `<div class="popup-title">Oslofjordveien ${b}</div>
-            <div class="popup-sub">${peopleIn(b)} os. w ${list.length} mieszk.</div>
+    const type = isRekketun(b) ? "rekketun" : "domek";
+    return `<div class="popup-title">${bLabel(b)}</div>
+            <div class="popup-sub">${type} · ${peopleIn(b)} os. w ${list.length} mieszk.</div>
             <div class="popup-list">${rows}</div>`;
   }
 
   Object.entries(BUILDINGS).forEach(([b, pos]) => {
     const count = peopleIn(b);
-    const size = count ? 34 : 24;
+    const size = count ? (isRekketun(b) ? 38 : 34) : (isRekketun(b) ? 28 : 24);
+    const kind = isRekketun(b) ? " rekketun" : "";
     const icon = L.divIcon({
       className: "",
       iconSize: [size, size],
       iconAnchor: [size / 2, size / 2],
-      html: `<div class="bldg-icon" id="bldg-${b}" style="width:${size}px;height:${size}px;${count ? "" : "opacity:.45"}">${b}${count ? `<span class="bldg-count">${count}</span>` : ""}</div>`
+      html: `<div class="bldg-icon${kind}" id="bldg-${b}" style="width:${size}px;height:${size}px;${count ? "" : "opacity:.45"}">${bShort(b)}${count ? `<span class="bldg-count">${count}</span>` : ""}</div>`
     });
     const m = L.marker([pos.lat, pos.lng], { icon, zIndexOffset: count ? 100 : 0 }).addTo(map);
     m.bindPopup(() => popupHtml(b, currentHighlight && currentHighlight.b === b ? currentHighlight.apt : null),
@@ -276,7 +309,7 @@
     if (!nq) { resultsEl.classList.remove("open"); resultsEl.innerHTML = ""; return; }
 
     const hits = PEOPLE
-      .filter(r => norm(r.name).includes(nq) || r.b === nq || r.apt.startsWith(nq))
+      .filter(r => matchesQuery(r, nq))
       .sort((a, b) => a.name.localeCompare(b.name, "pl"))
       .slice(0, 30);
 
@@ -289,11 +322,13 @@
           const flat = APARTMENTS.find(a => a.building === r.b && a.apt === r.apt);
           const others = flat.residents.filter(n => n !== r.name);
           const withWhom = others.length ? ` · z: ${others.join(", ")}` : "";
+          const badgeCls = isRekketun(r.b) ? "badge rekketun" : "badge";
+          const addrPrefix = isRekketun(r.b) ? "Rekketun" : "Oslofjordveien";
           return `<div class="result" data-i="${i}">
-              <div class="badge">${r.b}</div>
+              <div class="${badgeCls}">${bShort(r.b)}</div>
               <div class="info">
                 <div class="name">${nameHtml}</div>
-                <div class="addr">Oslofjordveien ${r.b} · mieszkanie ${r.apt}${withWhom}</div>
+                <div class="addr">${addrPrefix} ${bShort(r.b)} · mieszkanie ${r.apt}${withWhom}</div>
               </div>
             </div>`;
         }).join("")

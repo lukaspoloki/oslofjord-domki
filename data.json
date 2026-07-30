@@ -4,7 +4,7 @@
       "lat": 59.231115,
       "lng": 10.364088
     },
-    "2": {
+    "R2": {
       "lat": 59.231498,
       "lng": 10.362009
     },
@@ -12,7 +12,7 @@
       "lat": 59.23084,
       "lng": 10.36363
     },
-    "4": {
+    "R4": {
       "lat": 59.23115,
       "lng": 10.36096
     },
@@ -20,7 +20,7 @@
       "lat": 59.230297,
       "lng": 10.363712
     },
-    "6": {
+    "R6": {
       "lat": 59.230941,
       "lng": 10.36029
     },
@@ -28,7 +28,7 @@
       "lat": 59.229925,
       "lng": 10.363735
     },
-    "8": {
+    "R8": {
       "lat": 59.231315,
       "lng": 10.35952
     },
@@ -36,11 +36,11 @@
       "lat": 59.228475,
       "lng": 10.364856
     },
-    "10": {
+    "R10": {
       "lat": 59.230581,
       "lng": 10.362383
     },
-    "12": {
+    "R12": {
       "lat": 59.230479,
       "lng": 10.361783
     },
@@ -81,7 +81,7 @@
       ]
     },
     {
-      "building": "2",
+      "building": "R2",
       "apt": "304",
       "residents": [
         "Mariusz Czyż",
@@ -90,7 +90,7 @@
       ]
     },
     {
-      "building": "2",
+      "building": "R2",
       "apt": "415",
       "residents": [
         "Aksel Nooitgedagt",
@@ -102,7 +102,7 @@
       ]
     },
     {
-      "building": "2",
+      "building": "R2",
       "apt": "417",
       "residents": [
         "Ellen Pilch",
@@ -115,7 +115,7 @@
       ]
     },
     {
-      "building": "2",
+      "building": "R2",
       "apt": "502",
       "residents": [
         "Alek Pilch",
@@ -126,7 +126,7 @@
       ]
     },
     {
-      "building": "2",
+      "building": "R2",
       "apt": "507",
       "residents": [
         "Amanda Pilch",
@@ -139,7 +139,7 @@
       ]
     },
     {
-      "building": "2",
+      "building": "R2",
       "apt": "508",
       "residents": [
         "Anna Magdicz",
@@ -148,7 +148,7 @@
       ]
     },
     {
-      "building": "2",
+      "building": "R2",
       "apt": "603",
       "residents": [
         "Krysia Miedziak",
@@ -215,7 +215,7 @@
       ]
     },
     {
-      "building": "4",
+      "building": "R4",
       "apt": "212",
       "residents": [
         "Anna K Polok",
@@ -243,7 +243,7 @@
       ]
     },
     {
-      "building": "6",
+      "building": "R6",
       "apt": "110",
       "residents": [
         "Jakub Baczyński",
@@ -253,7 +253,7 @@
       ]
     },
     {
-      "building": "6",
+      "building": "R6",
       "apt": "240",
       "residents": [
         "Halina Sikora",
@@ -262,7 +262,7 @@
       ]
     },
     {
-      "building": "6",
+      "building": "R6",
       "apt": "302",
       "residents": [
         "Rachel Kędzior",
@@ -270,7 +270,7 @@
       ]
     },
     {
-      "building": "6",
+      "building": "R6",
       "apt": "607",
       "residents": [
         "Emil Wrzecionko",
@@ -294,14 +294,14 @@
       ]
     },
     {
-      "building": "8",
+      "building": "R8",
       "apt": "208",
       "residents": [
         "Karolina Potarzycka"
       ]
     },
     {
-      "building": "10",
+      "building": "R10",
       "apt": "103",
       "residents": [
         "Daria Pilch",
@@ -314,7 +314,7 @@
       ]
     },
     {
-      "building": "10",
+      "building": "R10",
       "apt": "202",
       "residents": [
         "Julia Kędzior",
@@ -323,7 +323,7 @@
       ]
     },
     {
-      "building": "10",
+      "building": "R10",
       "apt": "203",
       "residents": [
         "Bronek Bujok",
@@ -336,7 +336,7 @@
       ]
     },
     {
-      "building": "10",
+      "building": "R10",
       "apt": "310",
       "residents": [
         "Marlena Cichy",
@@ -346,7 +346,7 @@
       ]
     },
     {
-      "building": "10",
+      "building": "R10",
       "apt": "502",
       "residents": [
         "Colin Nooitgedagt",
@@ -357,28 +357,28 @@
       ]
     },
     {
-      "building": "10",
+      "building": "R10",
       "apt": "607",
       "residents": [
         "Helena Polok"
       ]
     },
     {
-      "building": "12",
+      "building": "R12",
       "apt": "313",
       "residents": [
         "Katarzyna Samiec"
       ]
     },
     {
-      "building": "12",
+      "building": "R12",
       "apt": "409",
       "residents": [
         "Irena Wrzecionko"
       ]
     },
     {
-      "building": "12",
+      "building": "R12",
       "apt": "423",
       "residents": [
         "Aurelia Polok",
@@ -388,21 +388,21 @@
       ]
     },
     {
-      "building": "12",
+      "building": "R12",
       "apt": "504",
       "residents": [
         "Klaudia Frankowska"
       ]
     },
     {
-      "building": "12",
+      "building": "R12",
       "apt": "514",
       "residents": [
         "Dorota Wisełka"
       ]
     },
     {
-      "building": "12",
+      "building": "R12",
       "apt": "611",
       "residents": [
         "Kaja Nooitgedagt",
