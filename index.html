@@ -222,12 +222,12 @@
   function matchesQuery(r, nq) {
     if (norm(r.name).includes(nq) || r.apt.startsWith(nq)) return true;
     const b = String(r.b);
-    if (norm(b) === nq || b.toLowerCase() === nq) return true;
-    // "r8" / "rekketun" / "rekketun 8"
+    const bl = b.toLowerCase();
+    // dokładny budynek: "8" ≠ "r8"
+    if (norm(b) === nq || bl === nq) return true;
     if (isRekketun(b)) {
       if (nq === "rekketun" || nq === "r") return true;
-      if (nq === norm(b) || nq === b.slice(1)) return true;
-      if (nq === `rekketun ${b.slice(1)}` || nq === `rekketun ${norm(b)}`) return true;
+      if (nq === `rekketun ${b.slice(1)}` || nq === `rekketun ${bl}`) return true;
     }
     return false;
   }
@@ -253,7 +253,7 @@
           return `<div class="popup-row${hl}"><span class="names">${names}</span><span class="apt">${a.apt}${floor}</span></div>`;
         }).join("")
       : `<div class="popup-empty">Brak zgłoszonych osób</div>`;
-    const type = isRekketun(b) ? "rekketun" : "domek";
+    const type = isRekketun(b) ? "rekketun · Bekkeveien" : "domek · Oslofjordveien";
     return `<div class="popup-title">${bLabel(b)}</div>
             <div class="popup-sub">${type} · ${peopleIn(b)} os. w ${list.length} mieszk.</div>
             <div class="popup-list">${rows}</div>`;
