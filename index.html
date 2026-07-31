@@ -179,28 +179,44 @@
   }
 
   /* ── kawa u sąsiada ── */
-  #coffeeBtn {
+  #coffeeBtn,
+  #inviteBtn {
     position: absolute;
     left: 14px;
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 52px);
     z-index: 1000;
     width: 58px; height: 58px;
     border: none; border-radius: 50%;
-    background: linear-gradient(145deg, #7a4a36, #3e2418);
-    color: #f5e6d3;
-    box-shadow:
-      0 4px 18px rgba(62, 36, 24, .45),
-      0 0 0 0 rgba(62, 158, 151, .35),
-      inset 0 1px 0 rgba(255,255,255,.18);
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     transition: transform .18s cubic-bezier(.2, 1.2, .4, 1), box-shadow .2s ease;
     -webkit-tap-highlight-color: transparent;
     animation: fab-idle 2.8s ease-in-out infinite;
   }
-  #coffeeBtn:hover { transform: scale(1.08); }
-  #coffeeBtn:active { transform: scale(.92); animation: none; }
-  #coffeeBtn svg { width: 28px; height: 28px; }
+  #coffeeBtn {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 52px);
+    background: linear-gradient(145deg, #7a4a36, #3e2418);
+    color: #f5e6d3;
+    box-shadow:
+      0 4px 18px rgba(62, 36, 24, .45),
+      0 0 0 0 rgba(62, 158, 151, .35),
+      inset 0 1px 0 rgba(255,255,255,.18);
+  }
+  #inviteBtn {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 122px);
+    background: linear-gradient(145deg, #0c625c, #014d49);
+    color: #f0fcfa;
+    box-shadow:
+      0 4px 18px rgba(1, 77, 73, .4),
+      0 0 0 0 rgba(62, 158, 151, .35),
+      inset 0 1px 0 rgba(255,255,255,.18);
+    animation-delay: .4s;
+  }
+  #coffeeBtn:hover,
+  #inviteBtn:hover { transform: scale(1.08); }
+  #coffeeBtn:active,
+  #inviteBtn:active { transform: scale(.92); animation: none; }
+  #coffeeBtn svg,
+  #inviteBtn svg { width: 28px; height: 28px; }
   #coffeeBtn.spinning {
     pointer-events: none;
     animation: coffee-wiggle .28s ease-in-out infinite;
@@ -555,6 +571,192 @@
     transform: translateY(0);
   }
 
+  /* ── zaproszenie ── */
+  #inviteOverlay {
+    position: fixed; inset: 0; z-index: 1100;
+    background: rgba(1, 30, 28, .62);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: none;
+    align-items: center; justify-content: center;
+    padding: 24px 18px calc(env(safe-area-inset-bottom, 0px) + 24px);
+    overflow: hidden;
+  }
+  #inviteOverlay.open { display: flex; animation: overlay-in .28s ease; }
+  #inviteOverlay.closing { animation: overlay-out .22s ease forwards; }
+
+  .invite-card {
+    position: relative;
+    z-index: 1;
+    width: min(380px, 100%);
+    max-height: min(640px, calc(100vh - 48px - env(safe-area-inset-bottom, 0px)));
+    display: flex;
+    flex-direction: column;
+    background:
+      radial-gradient(120% 80% at 50% -20%, rgba(62, 159, 151, .2), transparent 55%),
+      linear-gradient(180deg, #fffef9 0%, #eef7f5 100%);
+    border-radius: 24px;
+    padding: 20px 18px 16px;
+    box-shadow:
+      0 24px 60px rgba(0,0,0,.4),
+      0 0 0 1px rgba(255,255,255,.4) inset;
+    text-align: center;
+    animation: card-pop .42s cubic-bezier(.2, 1.35, .35, 1);
+  }
+  .invite-card.rekketun {
+    background:
+      radial-gradient(120% 80% at 50% -20%, rgba(196, 122, 58, .22), transparent 55%),
+      linear-gradient(180deg, #fffaf4 0%, #f3e4d0 100%);
+  }
+  .invite-icon {
+    width: 48px; height: 48px;
+    margin: 0 auto 6px;
+    color: var(--brand-700);
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,.12));
+  }
+  .invite-card.rekketun .invite-icon { color: #8a4f1a; }
+  .invite-label {
+    font-size: 12px; font-weight: 700; letter-spacing: .14em;
+    text-transform: uppercase; color: #5a8a84; margin-bottom: 6px;
+  }
+  .invite-card.rekketun .invite-label { color: #8a6a4a; }
+  .invite-status {
+    font-size: 15px; font-weight: 600; color: var(--brand-900);
+    margin-bottom: 12px;
+  }
+  .invite-search {
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .invite-search input {
+    width: 100%;
+    padding: 11px 36px 11px 14px;
+    border: 1.5px solid var(--brand-200);
+    border-radius: 999px;
+    font-size: 16px; font-family: inherit;
+    background: #fff;
+    color: var(--text);
+    outline: none;
+  }
+  .invite-search input:focus {
+    border-color: var(--brand-500);
+    box-shadow: 0 0 0 3px rgba(62, 159, 151, .18);
+  }
+  .invite-search .clear {
+    position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    width: 26px; height: 26px; border: none; border-radius: 50%;
+    background: #eef1f2; color: var(--muted);
+    font-size: 15px; line-height: 1; cursor: pointer; display: none;
+  }
+  .invite-search .clear.show { display: block; }
+  .invite-list {
+    flex: 1;
+    min-height: 120px;
+    max-height: 240px;
+    overflow-y: auto;
+    text-align: left;
+    background: rgba(255,255,255,.7);
+    border-radius: 14px;
+    margin-bottom: 12px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .invite-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #eef1f2;
+    transition: background .15s ease;
+  }
+  .invite-row:last-child { border-bottom: none; }
+  .invite-row:hover,
+  .invite-row:active { background: var(--brand-100); }
+  .invite-row.on {
+    background: var(--brand-200);
+    box-shadow: inset 3px 0 0 var(--brand-700);
+  }
+  .invite-row .badge {
+    flex-shrink: 0;
+    min-width: 40px; padding: 3px 6px;
+    border-radius: 9px;
+    background: var(--brand-900); color: #fff;
+    display: flex; flex-direction: column; align-items: center;
+    line-height: 1.15; gap: 1px;
+  }
+  .invite-row .badge .bldg { font-weight: 700; font-size: 13px; }
+  .invite-row .badge .aptn {
+    font-weight: 600; font-size: 10px; opacity: .85;
+    font-variant-numeric: tabular-nums;
+  }
+  .invite-row .badge.rekketun { background: #c47a3a; }
+  .invite-row .name { font-weight: 600; font-size: 14.5px; }
+  .invite-row .addr { font-size: 12px; color: var(--muted); }
+  .invite-empty {
+    padding: 22px 14px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .invite-picked {
+    text-align: left;
+    background: rgba(255,255,255,.8);
+    border-radius: 14px;
+    padding: 0 14px;
+    margin-bottom: 12px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height .4s cubic-bezier(.2, 1, .3, 1), opacity .25s ease, padding .25s ease;
+  }
+  .invite-picked.show {
+    max-height: 120px;
+    opacity: 1;
+    padding: 12px 14px;
+  }
+  .invite-picked .who {
+    font-size: 16px; font-weight: 700; color: var(--brand-900);
+    margin-bottom: 4px;
+  }
+  .invite-picked .where {
+    font-size: 13px; color: var(--muted);
+  }
+  .invite-actions {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .invite-actions button {
+    border: none; border-radius: 999px;
+    padding: 12px 16px;
+    font-family: inherit; font-size: 15px; font-weight: 600;
+    cursor: pointer;
+    transition: transform .15s cubic-bezier(.2, 1.2, .4, 1), opacity .2s ease;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .invite-actions button svg {
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+  }
+  .invite-actions button:active { transform: scale(.97); }
+  .invite-actions .primary {
+    background: linear-gradient(160deg, var(--brand-700), var(--brand-900));
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(1, 77, 73, .28);
+  }
+  .invite-actions .primary:disabled {
+    opacity: .4;
+    pointer-events: none;
+  }
+  .invite-actions .secondary {
+    background: transparent; color: var(--brand-700);
+    border: 1.5px solid var(--brand-200);
+  }
+  .invite-hint {
+    margin-top: 10px;
+    font-size: 11px; color: var(--muted);
+  }
+
   /* ── share studio ── */
   #shareStudio {
     position: fixed; inset: 0; z-index: 1200;
@@ -905,6 +1107,13 @@
   </header>
   <div id="results"></div>
   <div id="map"></div>
+  <button id="inviteBtn" type="button" aria-label="Zaproś na kawę" title="Zaproszenie na kawę">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M4.5 7.5h15v9a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 4.5 16.5v-9Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="m4.5 8 7.5 5.5L19.5 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M16.5 4.5 18 6l1.5-1.5" stroke="#9fd9d3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
   <button id="coffeeBtn" type="button" aria-label="Wylosuj kawę u sąsiada" title="Kawa u sąsiada">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path d="M4 9h13v5.5A4.5 4.5 0 0 1 12.5 19h-4A4.5 4.5 0 0 1 4 14.5V9Z" fill="currentColor" opacity=".95"/>
@@ -973,6 +1182,44 @@
       <div class="coffee-hint" id="coffeeHint">Dodaj zdjęcie i stickery, potem udostępnij</div>
     </div>
   </div>
+  <div id="inviteOverlay" role="dialog" aria-modal="true" aria-labelledby="inviteLabel">
+    <div class="invite-card" id="inviteCard">
+      <svg class="invite-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4.5 7.5h15v9a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 4.5 16.5v-9Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="m4.5 8 7.5 5.5L19.5 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M16.5 4.5 18 6l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/>
+      </svg>
+      <div class="invite-label" id="inviteLabel">Zaproszenie na kawę</div>
+      <div class="invite-status" id="inviteStatus">Kim jesteś?</div>
+      <div class="invite-search">
+        <input id="inviteSearch" type="search" placeholder="Szukaj siebie… (np. Polok)" autocomplete="off">
+        <button type="button" class="clear" id="inviteSearchClear" aria-label="Wyczyść">✕</button>
+      </div>
+      <div class="invite-list" id="inviteList" role="listbox" aria-label="Wybierz siebie"></div>
+      <div class="invite-picked" id="invitePicked">
+        <div class="who" id="inviteWho"></div>
+        <div class="where" id="inviteWhere"></div>
+      </div>
+      <div class="invite-actions">
+        <button type="button" class="primary" id="inviteShare" disabled>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="18" cy="5" r="2.5" stroke="currentColor" stroke-width="2"/>
+            <circle cx="6" cy="12" r="2.5" stroke="currentColor" stroke-width="2"/>
+            <circle cx="18" cy="19" r="2.5" stroke="currentColor" stroke-width="2"/>
+            <path d="M8.4 10.8 15.5 6.7M8.5 13.2l7 4.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Udostępnij zaproszenie
+        </button>
+        <button type="button" class="secondary" id="inviteClose">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 7l10 10M17 7 7 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Zamknij
+        </button>
+      </div>
+      <div class="invite-hint">Wybierz siebie, dodaj stickery i wyślij</div>
+    </div>
+  </div>
   <div id="shareStudio" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="shareTitle">
     <div class="share-panel">
       <div class="share-top">
@@ -1010,7 +1257,7 @@
           </div>
         </div>
         <div class="share-bring">
-          <label for="shareBringInput">Co przynoszę?</label>
+          <label for="shareBringInput" id="shareBringLabel">Co przynoszę?</label>
           <div class="share-bring-chips" id="shareBringChips"></div>
           <input id="shareBringInput" type="text" maxlength="60" placeholder="np. ciasto, kwiaty, dobry humor…" autocomplete="off" enterkeyhint="done">
         </div>
@@ -1611,6 +1858,12 @@
   }
 
   function openCoffee() {
+    // inviteOverlay jest zadeklarowany niżej — przy kliknięciu już istnieje
+    const inviteEl = document.getElementById("inviteOverlay");
+    if (inviteEl?.classList.contains("open")) {
+      inviteEl.classList.remove("open", "closing");
+      document.getElementById("inviteSearch")?.blur();
+    }
     resultsEl.classList.remove("open");
     input.blur();
     ensureAudio();
@@ -1630,6 +1883,7 @@
   const shareStickerBar = document.getElementById("shareStickerBar");
   const shareSend = document.getElementById("shareSend");
   const shareBack = document.getElementById("shareBack");
+  const shareTitle = document.getElementById("shareTitle");
   const shareFileCam = document.getElementById("shareFileCam");
   const shareFileGal = document.getElementById("shareFileGal");
   const shareClearPhoto = document.getElementById("shareClearPhoto");
@@ -1641,6 +1895,7 @@
   const shareToast = document.getElementById("shareToast");
   const shareCameraBtn = document.getElementById("shareCamera");
   const shareGalleryBtn = document.getElementById("shareGallery");
+  const shareBringLabel = document.getElementById("shareBringLabel");
   const shareBringInput = document.getElementById("shareBringInput");
   const shareBringChips = document.getElementById("shareBringChips");
   const shareDayChips = document.getElementById("shareDayChips");
@@ -1649,13 +1904,14 @@
   const CW = shareCanvas.width;
   const CH = shareCanvas.height;
   const PHOTO_MAX = 1600;
-  const BRING_CHIPS = ["Ciasto", "Kwiaty", "Wino", "Kawę", "Słodycze", "Dobry humor"];
+  const BRING_CHIPS_VISIT = ["Ciasto", "Kwiaty", "Wino", "Kawę", "Słodycze", "Dobry humor"];
+  const BRING_CHIPS_INVITE = ["Ciasto", "Kwiaty", "Wino", "Kawę", "Słodycze", "Dobry humor"];
   const TIME_CHIPS = ["10:00", "12:00", "15:00", "17:00", "18:00", "19:00", "20:00"];
   const WEEKDAYS_PL = [
     "Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota",
   ];
 
-  const STICKER_DEFS = [
+  const STICKERS_VISIT = [
     { kind: "emoji", label: "☕" },
     { kind: "emoji", label: "🫘" },
     { kind: "emoji", label: "💚" },
@@ -1667,6 +1923,19 @@
     { kind: "text", label: "KAWA!" },
     { kind: "text", label: "GO!" },
     { kind: "text", label: "SĄSIAD" },
+  ];
+  const STICKERS_INVITE = [
+    { kind: "emoji", label: "☕" },
+    { kind: "emoji", label: "💌" },
+    { kind: "emoji", label: "🎉" },
+    { kind: "emoji", label: "👋" },
+    { kind: "emoji", label: "💚" },
+    { kind: "emoji", label: "✨" },
+    { kind: "emoji", label: "🏠" },
+    { kind: "emoji", label: "📍" },
+    { kind: "text", label: "ZAPRASZAM" },
+    { kind: "text", label: "WPADEJ" },
+    { kind: "text", label: "KAWA!" },
   ];
 
   let sharePhoto = null;
@@ -1685,9 +1954,22 @@
   let shareDayKey = "";
   let shareDayLabel = "";
   let shareTime = "";
+  let shareMode = "visit"; // visit | invite
+  let shareSubject = null; // apartment
+  let sharePersonName = null;
+  let shareStickerDefs = STICKERS_VISIT;
 
-  function inviteWho(a) {
-    return a.residents.join(", ");
+  function isInviteMode() {
+    return shareMode === "invite";
+  }
+
+  function sharePeopleNames(a) {
+    if (!a) return [];
+    if (isInviteMode() && sharePersonName) {
+      const others = a.residents.filter(n => n !== sharePersonName);
+      return [sharePersonName, ...others];
+    }
+    return a.residents;
   }
 
   function whenLabel() {
@@ -1714,6 +1996,19 @@
   function inviteText(a) {
     const bring = shareBring.trim();
     const when = whenLabel();
+    if (isInviteMode()) {
+      const host = sharePersonName || a.residents[0] || "";
+      const housemates = a.residents.filter(n => n !== host);
+      return (
+        `Zapraszam na kawę!\n` +
+        `• ${host}` +
+        (housemates.length ? `\n(u nas: ${housemates.join(", ")})` : "") +
+        `\n${bLabel(a.building)}, mieszkanie ${a.apt}` +
+        (when ? `\nKiedy: ${when}` : "") +
+        (bring ? `\nPrzynieś: ${bring}` : "") +
+        `\nOslofjord — domki`
+      );
+    }
     return (
       `Idę na kawę do:\n${a.residents.map(n => `• ${n}`).join("\n")}\n` +
       `${bLabel(a.building)}, mieszkanie ${a.apt}` +
@@ -1721,6 +2016,20 @@
       (bring ? `\nPrzynoszę: ${bring}` : "") +
       `\nWylosowane w Oslofjord — domki`
     );
+  }
+
+  function renderStickerBar() {
+    shareStickerBar.innerHTML = shareStickerDefs.map((d, i) => {
+      const cls = d.kind === "text" ? "text-sticker" : "";
+      return `<button type="button" class="${cls}" data-i="${i}" aria-label="Dodaj ${d.label}">${d.label}</button>`;
+    }).join("");
+  }
+
+  function renderBringChips() {
+    const chips = isInviteMode() ? BRING_CHIPS_INVITE : BRING_CHIPS_VISIT;
+    shareBringChips.innerHTML = chips.map(
+      v => `<button type="button" data-v="${v}">${v}</button>`,
+    ).join("");
   }
 
   function showShareToast(msg) {
@@ -1745,7 +2054,7 @@
     }
     if (item.type === "suite") return { hw: 300 * s, hh: 70 * s };
     if (item.type === "people") {
-      const n = coffeePick ? coffeePick.residents.length : 1;
+      const n = shareSubject ? sharePeopleNames(shareSubject).length : 1;
       return { hw: 340 * s, hh: ((28 + n * 40) / 2) * s };
     }
     if (item.type === "bring" || item.type === "when") {
@@ -1881,7 +2190,8 @@
     shareItemId = 0;
     const gap = 40;
     const suiteHalfH = 70;
-    const peopleHalfH = (28 + a.residents.length * 40) / 2;
+    const peopleCount = sharePeopleNames(a).length;
+    const peopleHalfH = (28 + peopleCount * 40) / 2;
     const whenHalfH = 60;
     const bringHalfH = 60;
     const suiteY = sharePhoto ? CH * 0.52 : CH * 0.32;
@@ -1962,7 +2272,7 @@
     if (item.type === "suite" && a) {
       shareCtx.fillStyle = "rgba(245,230,211,.9)";
       shareCtx.font = "800 28px Archivo, system-ui, sans-serif";
-      shareCtx.fillText("KAWA U SĄSIADA", 0, -48);
+      shareCtx.fillText(isInviteMode() ? "ZAPRASZAM NA KAWĘ" : "KAWA U SĄSIADA", 0, -48);
       shareCtx.fillStyle = "#fff";
       shareCtx.font = "800 84px Archivo, system-ui, sans-serif";
       shareCtx.fillText(suiteLabel(a), 0, 8);
@@ -1970,11 +2280,11 @@
       shareCtx.font = "500 26px Archivo, system-ui, sans-serif";
       shareCtx.fillText(bLabel(a.building) + " · mieszk. " + a.apt, 0, 62);
     } else if (item.type === "people" && a) {
-      const names = a.residents;
+      const names = sharePeopleNames(a);
       const blockH = 28 + names.length * 40;
       shareCtx.fillStyle = "rgba(255,255,255,.55)";
       shareCtx.font = "700 22px Archivo, system-ui, sans-serif";
-      shareCtx.fillText("U KOGO", 0, -blockH / 2 + 14);
+      shareCtx.fillText(isInviteMode() ? "U MNIE" : "U KOGO", 0, -blockH / 2 + 14);
       shareCtx.fillStyle = "rgba(255,255,255,.92)";
       shareCtx.font = "600 34px Archivo, system-ui, sans-serif";
       names.forEach((name, i) => {
@@ -2004,7 +2314,7 @@
       shareCtx.fill();
       shareCtx.fillStyle = "rgba(245,230,211,.85)";
       shareCtx.font = "800 22px Archivo, system-ui, sans-serif";
-      shareCtx.fillText("PRZYNOSZĘ", 0, text ? -22 : 0);
+      shareCtx.fillText(isInviteMode() ? "PRZYNIEŚ" : "PRZYNOSZĘ", 0, text ? -22 : 0);
       if (text) {
         shareCtx.fillStyle = "#fff";
         shareCtx.font = "600 34px Archivo, system-ui, sans-serif";
@@ -2027,7 +2337,7 @@
   }
 
   function drawShareCard() {
-    const a = coffeePick;
+    const a = shareSubject;
     shareCtx.clearRect(0, 0, CW, CH);
 
     if (sharePhoto) {
@@ -2237,8 +2547,15 @@
     ).join("");
   }
 
-  function openShareStudio() {
-    if (!coffeePick) return;
+  function openShareStudio(opts = {}) {
+    const mode = opts.mode || "visit";
+    const subject = opts.subject || coffeePick;
+    const personName = opts.personName || null;
+    if (!subject) return;
+    shareMode = mode;
+    shareSubject = subject;
+    sharePersonName = personName;
+    shareStickerDefs = isInviteMode() ? STICKERS_INVITE : STICKERS_VISIT;
     sharePhoto = null;
     shareBring = "";
     shareBringInput.value = "";
@@ -2251,15 +2568,22 @@
     shareSelectedId = null;
     sharePointers.clear();
     sharePinch = null;
+    shareTitle.textContent = isInviteMode() ? "Zaproszenie" : "Udostępnij";
+    shareBringLabel.textContent = isInviteMode() ? "Co przynieść?" : "Co przynoszę?";
+    shareBringInput.placeholder = isInviteMode()
+      ? "np. ciasto, kwiaty, dobry humor…"
+      : "np. ciasto, kwiaty, dobry humor…";
+    renderStickerBar();
+    renderBringChips();
     renderWhenChips();
-    seedCardItems(coffeePick);
+    seedCardItems(subject);
     shareStudio.classList.remove("closing");
     shareStudio.classList.add("open");
     shareStudio.setAttribute("aria-hidden", "false");
     setShareScrollLock(true);
     shareTip.textContent = "Przeciągnij · rogiem lub +/− zmień rozmiar";
     shareSend.disabled = false;
-    shareSend.textContent = "Udostępnij";
+    shareSend.textContent = isInviteMode() ? "Wyślij zaproszenie" : "Udostępnij";
     shareBringChips.querySelectorAll("button").forEach(btn => btn.classList.remove("on"));
     drawShareCard();
     selectItem(null);
@@ -2285,6 +2609,9 @@
       shareDayLabel = "";
       shareTime = "";
       shareTimeCustom.value = "";
+      shareSubject = null;
+      sharePersonName = null;
+      shareMode = "visit";
       setShareScrollLock(false);
       updateSelectionUI();
       updatePhotoChrome();
@@ -2304,27 +2631,29 @@
   }
 
   async function sendShareInvite() {
-    if (!coffeePick || shareBusy) return;
+    if (!shareSubject || shareBusy) return;
     shareBringInput.blur();
     shareBusy = true;
     shareSend.disabled = true;
     const prevLabel = shareSend.textContent;
     shareSend.textContent = "Chwilka…";
+    const shareTitleText = isInviteMode() ? "Zaproszenie na kawę" : "Kawa u sąsiada";
+    const fileName = isInviteMode() ? "zaproszenie-oslofjord.jpg" : "kawa-oslofjord.jpg";
     try {
       const blob = await exportShareBlob();
-      const file = new File([blob], "kawa-oslofjord.jpg", { type: "image/jpeg" });
-      const text = inviteText(coffeePick);
+      const file = new File([blob], fileName, { type: "image/jpeg" });
+      const text = inviteText(shareSubject);
       let shared = false;
 
       if (navigator.share) {
-        const withFiles = { title: "Kawa u sąsiada", text, files: [file] };
+        const withFiles = { title: shareTitleText, text, files: [file] };
         const canFiles = !navigator.canShare || navigator.canShare({ files: [file] });
         try {
           if (canFiles) {
             await navigator.share(withFiles);
             shared = true;
           } else {
-            await navigator.share({ title: "Kawa u sąsiada", text });
+            await navigator.share({ title: shareTitleText, text });
             downloadBlob(blob, file.name);
             shared = true;
           }
@@ -2334,7 +2663,7 @@
           } else if (canFiles) {
             // niektóre WebView padają na files — spróbuj sam tekst + zapis
             try {
-              await navigator.share({ title: "Kawa u sąsiada", text });
+              await navigator.share({ title: shareTitleText, text });
             } catch { /* ignore */ }
             downloadBlob(blob, file.name);
             shared = true;
@@ -2355,7 +2684,7 @@
     } catch {
       try {
         const blob = await exportShareBlob();
-        downloadBlob(blob, "kawa-oslofjord.jpg");
+        downloadBlob(blob, fileName);
         showShareToast("Zapisano obraz");
       } catch {
         showShareToast("Nie udało się udostępnić");
@@ -2363,7 +2692,7 @@
     } finally {
       shareBusy = false;
       shareSend.disabled = false;
-      shareSend.textContent = prevLabel || "Udostępnij";
+      shareSend.textContent = prevLabel || (isInviteMode() ? "Wyślij zaproszenie" : "Udostępnij");
     }
   }
 
@@ -2379,14 +2708,11 @@
     setTimeout(() => URL.revokeObjectURL(url), 2000);
   }
 
-  shareStickerBar.innerHTML = STICKER_DEFS.map((d, i) => {
-    const cls = d.kind === "text" ? "text-sticker" : "";
-    return `<button type="button" class="${cls}" data-i="${i}" aria-label="Dodaj ${d.label}">${d.label}</button>`;
-  }).join("");
+  renderStickerBar();
   shareStickerBar.addEventListener("click", e => {
     const btn = e.target.closest("button[data-i]");
     if (!btn) return;
-    addSticker(STICKER_DEFS[+btn.dataset.i]);
+    addSticker(shareStickerDefs[+btn.dataset.i]);
   });
 
   function clearLongPress() {
@@ -2527,9 +2853,7 @@
     if (shareStudio.classList.contains("open")) updateSelectionUI();
   });
 
-  shareBringChips.innerHTML = BRING_CHIPS.map(
-    v => `<button type="button" data-v="${v}">${v}</button>`,
-  ).join("");
+  renderBringChips();
   shareBringChips.addEventListener("click", e => {
     const btn = e.target.closest("button[data-v]");
     if (!btn) return;
@@ -2616,14 +2940,219 @@
     closeCoffee();
     setTimeout(() => goTo(a.building, a.apt, guest), 120);
   });
-  coffeeShare.addEventListener("click", openShareStudio);
+  coffeeShare.addEventListener("click", () => openShareStudio({ mode: "visit", subject: coffeePick }));
   coffeeClose.addEventListener("click", closeCoffee);
   coffeeOverlay.addEventListener("click", e => {
     if (e.target === coffeeOverlay && !shareStudio.classList.contains("open")) closeCoffee();
   });
+
+  // ── zaproszenie — wybierz siebie i udostępnij ──
+  const inviteBtn = document.getElementById("inviteBtn");
+  const inviteOverlay = document.getElementById("inviteOverlay");
+  const inviteCard = document.getElementById("inviteCard");
+  const inviteStatus = document.getElementById("inviteStatus");
+  const inviteSearch = document.getElementById("inviteSearch");
+  const inviteSearchClear = document.getElementById("inviteSearchClear");
+  const inviteList = document.getElementById("inviteList");
+  const invitePicked = document.getElementById("invitePicked");
+  const inviteWhoEl = document.getElementById("inviteWho");
+  const inviteWhere = document.getElementById("inviteWhere");
+  const inviteShare = document.getElementById("inviteShare");
+  const inviteClose = document.getElementById("inviteClose");
+  const INVITE_MEMORY_KEY = "oslofjord-invite-who";
+
+  let invitePick = null; // { name, b, apt }
+  let inviteHits = [];
+
+  function loadInviteMemory() {
+    try {
+      const raw = localStorage.getItem(INVITE_MEMORY_KEY);
+      if (!raw) return null;
+      const saved = JSON.parse(raw);
+      if (!saved?.name || !saved?.b || !saved?.apt) return null;
+      const match = PEOPLE.find(
+        p => p.name === saved.name && p.b === saved.b && p.apt === saved.apt,
+      );
+      return match || null;
+    } catch {
+      return null;
+    }
+  }
+
+  function saveInviteMemory(person) {
+    try {
+      localStorage.setItem(
+        INVITE_MEMORY_KEY,
+        JSON.stringify({ name: person.name, b: person.b, apt: person.apt }),
+      );
+    } catch { /* ignore */ }
+  }
+
+  function apartmentForPerson(person) {
+    return APARTMENTS.find(a => a.building === person.b && a.apt === person.apt) || null;
+  }
+
+  function setInvitePick(person) {
+    invitePick = person;
+    if (!person) {
+      invitePicked.classList.remove("show");
+      inviteShare.disabled = true;
+      inviteCard.classList.remove("rekketun");
+      inviteStatus.textContent = "Kim jesteś?";
+      inviteList.querySelectorAll(".invite-row").forEach(el => el.classList.remove("on"));
+      return;
+    }
+    const flat = apartmentForPerson(person);
+    const floor = person.apt.length === 3 ? ` · piętro ${person.apt[0]}` : "";
+    inviteWhoEl.textContent = person.name;
+    inviteWhere.textContent = `${bLabel(person.b)} · mieszkanie ${person.apt}${floor}`;
+    invitePicked.classList.add("show");
+    inviteShare.disabled = !flat;
+    inviteCard.classList.toggle("rekketun", isRekketun(person.b));
+    inviteStatus.textContent = "To Ty — gotowe do wysłania";
+    inviteList.querySelectorAll(".invite-row").forEach(el => {
+      const hit = inviteHits[+el.dataset.i];
+      el.classList.toggle(
+        "on",
+        !!hit && hit.name === person.name && hit.b === person.b && hit.apt === person.apt,
+      );
+    });
+    saveInviteMemory(person);
+  }
+
+  function renderInviteList(q = "") {
+    const nq = norm(q.trim());
+    inviteSearchClear.classList.toggle("show", !!q);
+    const remembered = loadInviteMemory();
+    let hits = PEOPLE
+      .filter(r => !nq || matchesQuery(r, nq))
+      .sort((a, b) => a.name.localeCompare(b.name, "pl"));
+
+    if (!nq && remembered) {
+      hits = [
+        remembered,
+        ...hits.filter(
+          p => !(p.name === remembered.name && p.b === remembered.b && p.apt === remembered.apt),
+        ),
+      ];
+    }
+    hits = hits.slice(0, 40);
+    inviteHits = hits;
+
+    if (!hits.length) {
+      inviteList.innerHTML = `<div class="invite-empty">Nie znaleziono „${q}”</div>`;
+      return;
+    }
+
+    inviteList.innerHTML = hits.map((r, i) => {
+      const badgeCls = isRekketun(r.b) ? "badge rekketun" : "badge";
+      const addrPrefix = isRekketun(r.b) ? "Rekketun" : "Oslofjordveien";
+      const isOn = invitePick
+        && invitePick.name === r.name
+        && invitePick.b === r.b
+        && invitePick.apt === r.apt;
+      const rememberedMark = remembered
+        && remembered.name === r.name
+        && remembered.b === r.b
+        && remembered.apt === r.apt
+        && !nq
+        ? " · ostatnio"
+        : "";
+      return `<div class="invite-row${isOn ? " on" : ""}" data-i="${i}" role="option" aria-selected="${isOn}">
+        <div class="${badgeCls}">
+          <span class="bldg">${bShort(r.b)}</span>
+          <span class="aptn">${r.apt}</span>
+        </div>
+        <div class="info">
+          <div class="name">${r.name}</div>
+          <div class="addr">${addrPrefix} ${bShort(r.b)} · mieszk. ${r.apt}${rememberedMark}</div>
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  function resetInviteModal() {
+    inviteSearch.value = "";
+    const remembered = loadInviteMemory();
+    invitePick = null;
+    invitePicked.classList.remove("show");
+    inviteShare.disabled = true;
+    inviteCard.classList.remove("rekketun");
+    inviteStatus.textContent = "Kim jesteś?";
+    renderInviteList("");
+    if (remembered) setInvitePick(remembered);
+  }
+
+  function openInvite() {
+    if (coffeeOverlay.classList.contains("open")) {
+      cancelAnimationFrame(coffeeRaf);
+      coffeeOverlay.classList.remove("open", "closing");
+      resetCoffeeModal();
+      coffeeActions.classList.remove("ready");
+    }
+    resultsEl.classList.remove("open");
+    input.blur();
+    ensureAudio();
+    inviteOverlay.classList.remove("closing");
+    resetInviteModal();
+    inviteOverlay.classList.add("open");
+    inviteCard.style.animation = "none";
+    void inviteCard.offsetWidth;
+    inviteCard.style.animation = "";
+    buzz(8);
+    setTimeout(() => inviteSearch.focus(), 220);
+  }
+
+  function closeInvite() {
+    if (shareStudio.classList.contains("open") && isInviteMode()) {
+      closeShareStudio();
+      return;
+    }
+    inviteOverlay.classList.add("closing");
+    setTimeout(() => {
+      inviteOverlay.classList.remove("open", "closing");
+      inviteSearch.blur();
+    }, 200);
+  }
+
+  function startInviteShare() {
+    if (!invitePick) return;
+    const flat = apartmentForPerson(invitePick);
+    if (!flat) return;
+    buzz(12);
+    playTone(523.25, 0.07, "triangle", 0.04);
+    openShareStudio({
+      mode: "invite",
+      subject: flat,
+      personName: invitePick.name,
+    });
+  }
+
+  inviteBtn.addEventListener("click", openInvite);
+  inviteClose.addEventListener("click", closeInvite);
+  inviteShare.addEventListener("click", startInviteShare);
+  inviteSearch.addEventListener("input", () => renderInviteList(inviteSearch.value));
+  inviteSearchClear.addEventListener("click", () => {
+    inviteSearch.value = "";
+    renderInviteList("");
+    inviteSearch.focus();
+  });
+  inviteList.addEventListener("click", e => {
+    const row = e.target.closest(".invite-row[data-i]");
+    if (!row) return;
+    const person = inviteHits[+row.dataset.i];
+    if (!person) return;
+    setInvitePick(person);
+    buzz(10);
+  });
+  inviteOverlay.addEventListener("click", e => {
+    if (e.target === inviteOverlay && !shareStudio.classList.contains("open")) closeInvite();
+  });
+
   document.addEventListener("keydown", e => {
     if (e.key !== "Escape") return;
     if (shareStudio.classList.contains("open")) closeShareStudio();
+    else if (inviteOverlay.classList.contains("open")) closeInvite();
     else if (coffeeOverlay.classList.contains("open")) closeCoffee();
   });
 </script>
