@@ -301,16 +301,6 @@
       ]
     },
     {
-      "building": "6",
-      "apt": "607",
-      "residents": [
-        "Emil Wrzecionko",
-        "Kasia Wrzecionko",
-        "Liam Wrzecionko",
-        "Mateusz Wrzecionko"
-      ]
-    },
-    {
       "building": "7",
       "apt": "504",
       "residents": [
@@ -326,6 +316,16 @@
         "Marcelina Szlachta",
         "Martyna Miedziak",
         "Usia Szlachta"
+      ]
+    },
+    {
+      "building": "8",
+      "apt": "215",
+      "residents": [
+        "Emil Wrzecionko",
+        "Kasia Wrzecionko",
+        "Liam Wrzecionko",
+        "Mateusz Wrzecionko"
       ]
     },
     {
