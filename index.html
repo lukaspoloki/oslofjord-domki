@@ -73,11 +73,16 @@
   .result:hover, .result:active { background: var(--brand-100); }
   .result .badge {
     flex-shrink: 0;
-    min-width: 34px; height: 34px; padding: 0 6px;
+    min-width: 42px; padding: 4px 7px;
     border-radius: 10px;
     background: var(--brand-900); color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 14px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    line-height: 1.15; gap: 1px;
+  }
+  .result .badge .bldg { font-weight: 700; font-size: 14px; }
+  .result .badge .aptn {
+    font-weight: 600; font-size: 11px; opacity: .85;
+    font-variant-numeric: tabular-nums;
   }
   .result .badge.rekketun {
     background: #c47a3a;
@@ -126,11 +131,30 @@
     display: flex; justify-content: space-between; align-items: flex-start; gap: 14px;
     padding: 4px 0; font-size: 13.5px;
     border-bottom: 1px dashed #eee;
+    transition: background .35s ease, box-shadow .35s ease, transform .35s ease;
   }
   .popup-row .names div { padding: 1px 0; }
+  .popup-row .names .hl-name {
+    font-weight: 700;
+    color: var(--brand-900);
+  }
   .popup-row:last-child { border-bottom: none; }
   .popup-row .apt { color: var(--brand-700); font-weight: 700; font-variant-numeric: tabular-nums; }
-  .popup-row.hl { background: var(--brand-100); border-radius: 6px; padding-left: 6px; padding-right: 6px; margin: 0 -6px; }
+  .popup-row.hl {
+    background: var(--brand-100);
+    border-radius: 6px;
+    padding-left: 6px; padding-right: 6px;
+    margin: 0 -6px;
+  }
+  .popup-row.hl-pulse {
+    animation: hl-pulse 1.6s ease-out 1;
+    box-shadow: inset 0 0 0 1.5px var(--brand-500);
+  }
+  @keyframes hl-pulse {
+    0%   { background: #9fd9d3; transform: scale(1.02); }
+    40%  { background: var(--brand-200); transform: scale(1.02); }
+    100% { background: var(--brand-100); transform: scale(1); }
+  }
   .popup-empty { font-size: 13px; color: var(--muted); padding: 4px 0; }
 
   footer {
@@ -243,14 +267,20 @@
   const markers = {};
   const bounds = [];
 
-  function popupHtml(b, highlightApt) {
+  function popupHtml(b, highlight) {
     const list = byBuilding[b] || [];
+    const hlApt = highlight?.apt;
+    const hlName = highlight?.name;
     const rows = list.length
       ? list.map(a => {
-          const hl = highlightApt && a.apt === highlightApt ? " hl" : "";
+          const isHl = hlApt && a.apt === hlApt;
+          const hl = isHl ? " hl" : "";
           const floor = a.apt.length === 3 ? ` · p. ${a.apt[0]}` : "";
-          const names = a.residents.map(n => `<div>${n}</div>`).join("");
-          return `<div class="popup-row${hl}"><span class="names">${names}</span><span class="apt">${a.apt}${floor}</span></div>`;
+          const names = a.residents.map(n => {
+            const mark = isHl && hlName && n === hlName ? ' class="hl-name"' : "";
+            return `<div${mark}>${n}</div>`;
+          }).join("");
+          return `<div class="popup-row${hl}" data-apt="${a.apt}"><span class="names">${names}</span><span class="apt">${a.apt}${floor}</span></div>`;
         }).join("")
       : `<div class="popup-empty">Brak zgłoszonych osób</div>`;
     const type = isRekketun(b) ? "rekketun · Bekkeveien" : "domek · Oslofjordveien";
@@ -270,15 +300,29 @@
       html: `<div class="bldg-icon${kind}" id="bldg-${b}" style="width:${size}px;height:${size}px;${count ? "" : "opacity:.45"}">${bShort(b)}${count ? `<span class="bldg-count">${count}</span>` : ""}</div>`
     });
     const m = L.marker([pos.lat, pos.lng], { icon, zIndexOffset: count ? 100 : 0 }).addTo(map);
-    m.bindPopup(() => popupHtml(b, currentHighlight && currentHighlight.b === b ? currentHighlight.apt : null),
-                { maxWidth: 280 });
-    m.on("popupclose", () => setActive(null));
+    m.bindPopup(
+      () => popupHtml(b, currentHighlight && currentHighlight.b === b ? currentHighlight : null),
+      { maxWidth: 280 },
+    );
+    m.on("popupclose", () => {
+      // Only clear this building — closing it while navigating to another
+      // must not wipe the new highlight / active marker.
+      const el = document.getElementById("bldg-" + b);
+      if (el) el.classList.remove("active");
+      if (currentHighlight?.b === b) currentHighlight = null;
+    });
+    m.on("popupopen", () => {
+      if (!currentHighlight || currentHighlight.b !== b) return;
+      requestAnimationFrame(() => revealHighlight(m.getPopup().getElement()));
+    });
     markers[b] = m;
     bounds.push([pos.lat, pos.lng]);
   });
   map.fitBounds(bounds, { padding: [40, 40] });
 
   let currentHighlight = null;
+  let highlightTimer = null;
+
   function setActive(b) {
     document.querySelectorAll(".bldg-icon.active").forEach(el => el.classList.remove("active"));
     if (b) {
@@ -289,13 +333,40 @@
     }
   }
 
-  function goTo(b, apt) {
+  function revealHighlight(popupEl) {
+    if (!popupEl || !currentHighlight) return;
+    const row = popupEl.querySelector(`.popup-row[data-apt="${CSS.escape(currentHighlight.apt)}"]`);
+    if (!row) return;
+    const list = popupEl.querySelector(".popup-list");
+    if (list) {
+      const delta = row.getBoundingClientRect().top - list.getBoundingClientRect().top;
+      const top = list.scrollTop + delta - list.clientHeight / 2 + row.offsetHeight / 2;
+      list.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+    }
+    row.classList.remove("hl-pulse");
+    // restart animation if the same apt is selected again
+    void row.offsetWidth;
+    row.classList.add("hl-pulse");
+    clearTimeout(highlightTimer);
+    highlightTimer = setTimeout(() => row.classList.remove("hl-pulse"), 1800);
+  }
+
+  function goTo(b, apt, name) {
     const pos = BUILDINGS[b];
     if (!pos) return;
-    currentHighlight = apt ? { b, apt } : null;
-    map.flyTo([pos.lat, pos.lng], 18, { duration: 0.8 });
+    currentHighlight = apt ? { b, apt, name: name || null } : null;
     setActive(b);
-    setTimeout(() => markers[b].openPopup(), 850);
+    const marker = markers[b];
+    const alreadyOpen = marker.isPopupOpen();
+    map.flyTo([pos.lat, pos.lng], 18, { duration: alreadyOpen ? 0.4 : 0.8 });
+    setTimeout(() => {
+      if (alreadyOpen) {
+        marker.setPopupContent(popupHtml(b, currentHighlight));
+        revealHighlight(marker.getPopup().getElement());
+      } else {
+        marker.openPopup();
+      }
+    }, alreadyOpen ? 200 : 850);
   }
 
   // ── wyszukiwarka ──
@@ -325,7 +396,10 @@
           const badgeCls = isRekketun(r.b) ? "badge rekketun" : "badge";
           const addrPrefix = isRekketun(r.b) ? "Rekketun" : "Oslofjordveien";
           return `<div class="result" data-i="${i}">
-              <div class="${badgeCls}">${bShort(r.b)}</div>
+              <div class="${badgeCls}" title="${addrPrefix} ${bShort(r.b)}, mieszkanie ${r.apt}">
+                <span class="bldg">${bShort(r.b)}</span>
+                <span class="aptn">${r.apt}</span>
+              </div>
               <div class="info">
                 <div class="name">${nameHtml}</div>
                 <div class="addr">${addrPrefix} ${bShort(r.b)} · mieszkanie ${r.apt}${withWhom}</div>
@@ -340,7 +414,7 @@
         const r = hits[+el.dataset.i];
         resultsEl.classList.remove("open");
         input.blur();
-        goTo(r.b, r.apt);
+        goTo(r.b, r.apt, r.name);
       });
     });
   }
