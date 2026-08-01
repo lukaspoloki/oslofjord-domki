@@ -4,6 +4,13 @@ Publiczna mapa mieszkańców: [lukaspoloki.github.io/oslofjord-domki](https://lu
 
 W repozytorium są tylko pliki stronki (`index.html`, `data.json`). Edycja danych odbywa się botem Telegram (poza gitem).
 
+## Nederlandse versie (apart)
+
+Aparte Nederlandse app: **zelfde gebouwen** als Oslofjord, andere bewoners/kamers:
+
+- Kaart: [lukaspoloki.github.io/oslofjord-domki/nl/](https://lukaspoloki.github.io/oslofjord-domki/nl/)
+- Bestanden: `nl/index.html`, `nl/data.json` — zie [nl/README.md](nl/README.md)
+
 ## Adresy budynków
 
 - **Domki** (Oslofjordveien) — zwykły numer, np. `3/203`, `8/208`, `24/502`
