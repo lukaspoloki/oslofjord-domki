@@ -11,84 +11,160 @@
     "searchHint": "Jansen, L3, rijtjes"
   },
   "buildings": {
-    "1": { "lat": 52.15842, "lng": 5.39112 },
-    "2": { "lat": 52.15818, "lng": 5.39041 },
-    "3": { "lat": 52.15791, "lng": 5.38978 },
-    "4": { "lat": 52.15762, "lng": 5.38915 },
-    "5": { "lat": 52.15735, "lng": 5.38852 },
-    "6": { "lat": 52.15708, "lng": 5.38790 },
-    "8": { "lat": 52.15680, "lng": 5.38728 },
-    "10": { "lat": 52.15652, "lng": 5.38665 },
-    "L2": { "lat": 52.15865, "lng": 5.38955 },
-    "L4": { "lat": 52.15840, "lng": 5.38895 },
-    "L6": { "lat": 52.15812, "lng": 5.38835 },
-    "L8": { "lat": 52.15785, "lng": 5.38775 }
+    "1": {
+      "lat": 52.2218,
+      "lng": 5.3485
+    },
+    "2": {
+      "lat": 52.22152,
+      "lng": 5.34808
+    },
+    "3": {
+      "lat": 52.22124,
+      "lng": 5.34766
+    },
+    "4": {
+      "lat": 52.22096,
+      "lng": 5.34724
+    },
+    "5": {
+      "lat": 52.22068,
+      "lng": 5.34682
+    },
+    "6": {
+      "lat": 52.2204,
+      "lng": 5.3464
+    },
+    "8": {
+      "lat": 52.22012,
+      "lng": 5.34598
+    },
+    "10": {
+      "lat": 52.21984,
+      "lng": 5.34556
+    },
+    "L2": {
+      "lat": 52.22215,
+      "lng": 5.34755
+    },
+    "L4": {
+      "lat": 52.22189,
+      "lng": 5.34717
+    },
+    "L6": {
+      "lat": 52.22163,
+      "lng": 5.34679
+    },
+    "L8": {
+      "lat": 52.22137,
+      "lng": 5.34641
+    }
   },
   "apartments": [
     {
       "building": "1",
       "apt": "101",
-      "residents": ["Emma Jansen", "Lucas Jansen"]
+      "residents": [
+        "Emma Jansen",
+        "Lucas Jansen"
+      ]
     },
     {
       "building": "1",
       "apt": "102",
-      "residents": ["Sophie de Vries"]
+      "residents": [
+        "Sophie de Vries"
+      ]
     },
     {
       "building": "2",
       "apt": "201",
-      "residents": ["Noah Bakker", "Julia Bakker", "Mila Bakker"]
+      "residents": [
+        "Noah Bakker",
+        "Julia Bakker",
+        "Mila Bakker"
+      ]
     },
     {
       "building": "3",
       "apt": "112",
-      "residents": ["Daan Visser", "Sara Visser"]
+      "residents": [
+        "Daan Visser",
+        "Sara Visser"
+      ]
     },
     {
       "building": "4",
       "apt": "203",
-      "residents": ["Finn Smit", "Lotte Smit", "Tess Smit", "Bram Smit"]
+      "residents": [
+        "Finn Smit",
+        "Lotte Smit",
+        "Tess Smit",
+        "Bram Smit"
+      ]
     },
     {
       "building": "5",
       "apt": "301",
-      "residents": ["Olivia Meijer"]
+      "residents": [
+        "Olivia Meijer"
+      ]
     },
     {
       "building": "6",
       "apt": "215",
-      "residents": ["Sem de Boer", "Noor de Boer"]
+      "residents": [
+        "Sem de Boer",
+        "Noor de Boer"
+      ]
     },
     {
       "building": "8",
       "apt": "104",
-      "residents": ["Levi Mulder", "Eva Mulder", "Zoe Mulder"]
+      "residents": [
+        "Levi Mulder",
+        "Eva Mulder",
+        "Zoe Mulder"
+      ]
     },
     {
       "building": "10",
       "apt": "220",
-      "residents": ["Thijs Hendriks"]
+      "residents": [
+        "Thijs Hendriks"
+      ]
     },
     {
       "building": "L2",
       "apt": "208",
-      "residents": ["Isa van Dijk", "Max van Dijk"]
+      "residents": [
+        "Isa van Dijk",
+        "Max van Dijk"
+      ]
     },
     {
       "building": "L4",
       "apt": "312",
-      "residents": ["Lara Bos", "Jesse Bos", "Nina Bos"]
+      "residents": [
+        "Lara Bos",
+        "Jesse Bos",
+        "Nina Bos"
+      ]
     },
     {
       "building": "L6",
       "apt": "417",
-      "residents": ["Ruben Vos", "Anna Vos"]
+      "residents": [
+        "Ruben Vos",
+        "Anna Vos"
+      ]
     },
     {
       "building": "L8",
       "apt": "105",
-      "residents": ["Mees Dekker"]
+      "residents": [
+        "Mees Dekker"
+      ]
     }
   ]
 }
