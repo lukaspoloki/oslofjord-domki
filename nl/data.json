@@ -1,84 +1,128 @@
 {
   "meta": {
-    "brand": "Voorbeeldpark — huisjes",
-    "title": "Voorbeeldpark — wie woont waar",
-    "street": "Parkweg",
-    "altStreet": "Lanenpad",
-    "altPrefix": "L",
-    "altKind": "rijtjes",
-    "altKindLabel": "rijtjeshuis",
+    "brand": "Oslofjord — huisjes",
+    "title": "Oslofjord — wie woont waar",
+    "street": "Oslofjordveien",
+    "altStreet": "Rekketun",
+    "altPrefix": "R",
+    "altKind": "rekketun",
+    "altKindLabel": "rekketun",
     "mainKindLabel": "huisje",
-    "searchHint": "Jansen, L3, rijtjes"
+    "searchHint": "Jansen, R8, rekketun"
   },
   "buildings": {
     "1": {
-      "lat": 52.2218,
-      "lng": 5.3485
+      "lat": 59.231115,
+      "lng": 10.364088
     },
     "2": {
-      "lat": 52.22152,
-      "lng": 5.34808
+      "lat": 59.231498,
+      "lng": 10.362009
     },
     "3": {
-      "lat": 52.22124,
-      "lng": 5.34766
+      "lat": 59.23084,
+      "lng": 10.36363
     },
     "4": {
-      "lat": 52.22096,
-      "lng": 5.34724
+      "lat": 59.23115,
+      "lng": 10.36096
     },
     "5": {
-      "lat": 52.22068,
-      "lng": 5.34682
+      "lat": 59.230297,
+      "lng": 10.363712
     },
     "6": {
-      "lat": 52.2204,
-      "lng": 5.3464
+      "lat": 59.230941,
+      "lng": 10.36029
+    },
+    "7": {
+      "lat": 59.229925,
+      "lng": 10.363735
     },
     "8": {
-      "lat": 52.22012,
-      "lng": 5.34598
+      "lat": 59.231315,
+      "lng": 10.35952
+    },
+    "9": {
+      "lat": 59.228475,
+      "lng": 10.364856
     },
     "10": {
-      "lat": 52.21984,
-      "lng": 5.34556
+      "lat": 59.230581,
+      "lng": 10.362383
     },
-    "L2": {
-      "lat": 52.22215,
-      "lng": 5.34755
+    "12": {
+      "lat": 59.230479,
+      "lng": 10.361783
     },
-    "L4": {
-      "lat": 52.22189,
-      "lng": 5.34717
+    "14": {
+      "lat": 59.230106,
+      "lng": 10.361745
     },
-    "L6": {
-      "lat": 52.22163,
-      "lng": 5.34679
+    "16": {
+      "lat": 59.229874,
+      "lng": 10.361109
     },
-    "L8": {
-      "lat": 52.22137,
-      "lng": 5.34641
+    "18": {
+      "lat": 59.229456,
+      "lng": 10.362264
+    },
+    "20": {
+      "lat": 59.229099,
+      "lng": 10.362175
+    },
+    "22": {
+      "lat": 59.228583,
+      "lng": 10.362136
+    },
+    "24": {
+      "lat": 59.22828,
+      "lng": 10.361831
+    },
+    "R2": {
+      "lat": 59.231576,
+      "lng": 10.358086
+    },
+    "R4": {
+      "lat": 59.231345,
+      "lng": 10.358186
+    },
+    "R6": {
+      "lat": 59.231099,
+      "lng": 10.358094
+    },
+    "R8": {
+      "lat": 59.230939,
+      "lng": 10.35771
+    },
+    "R10": {
+      "lat": 59.230825,
+      "lng": 10.357307
+    },
+    "R12": {
+      "lat": 59.230661,
+      "lng": 10.356924
     }
   },
   "apartments": [
     {
       "building": "1",
-      "apt": "101",
+      "apt": "203",
       "residents": [
         "Emma Jansen",
         "Lucas Jansen"
       ]
     },
     {
-      "building": "1",
-      "apt": "102",
+      "building": "2",
+      "apt": "118",
       "residents": [
         "Sophie de Vries"
       ]
     },
     {
-      "building": "2",
-      "apt": "201",
+      "building": "3",
+      "apt": "305",
       "residents": [
         "Noah Bakker",
         "Julia Bakker",
@@ -86,16 +130,16 @@
       ]
     },
     {
-      "building": "3",
-      "apt": "112",
+      "building": "4",
+      "apt": "212",
       "residents": [
         "Daan Visser",
         "Sara Visser"
       ]
     },
     {
-      "building": "4",
-      "apt": "203",
+      "building": "5",
+      "apt": "401",
       "residents": [
         "Finn Smit",
         "Lotte Smit",
@@ -104,15 +148,15 @@
       ]
     },
     {
-      "building": "5",
-      "apt": "301",
+      "building": "6",
+      "apt": "109",
       "residents": [
         "Olivia Meijer"
       ]
     },
     {
-      "building": "6",
-      "apt": "215",
+      "building": "7",
+      "apt": "316",
       "residents": [
         "Sem de Boer",
         "Noor de Boer"
@@ -120,7 +164,7 @@
     },
     {
       "building": "8",
-      "apt": "104",
+      "apt": "220",
       "residents": [
         "Levi Mulder",
         "Eva Mulder",
@@ -128,23 +172,23 @@
       ]
     },
     {
-      "building": "10",
-      "apt": "220",
+      "building": "9",
+      "apt": "104",
       "residents": [
         "Thijs Hendriks"
       ]
     },
     {
-      "building": "L2",
-      "apt": "208",
+      "building": "10",
+      "apt": "508",
       "residents": [
         "Isa van Dijk",
         "Max van Dijk"
       ]
     },
     {
-      "building": "L4",
-      "apt": "312",
+      "building": "12",
+      "apt": "214",
       "residents": [
         "Lara Bos",
         "Jesse Bos",
@@ -152,18 +196,97 @@
       ]
     },
     {
-      "building": "L6",
-      "apt": "417",
+      "building": "14",
+      "apt": "307",
       "residents": [
         "Ruben Vos",
         "Anna Vos"
       ]
     },
     {
-      "building": "L8",
-      "apt": "105",
+      "building": "16",
+      "apt": "111",
       "residents": [
         "Mees Dekker"
+      ]
+    },
+    {
+      "building": "18",
+      "apt": "402",
+      "residents": [
+        "Fleur Peters",
+        "Tom Peters"
+      ]
+    },
+    {
+      "building": "20",
+      "apt": "215",
+      "residents": [
+        "Koen Willems"
+      ]
+    },
+    {
+      "building": "22",
+      "apt": "319",
+      "residents": [
+        "Sanne Hofman",
+        "Tim Hofman",
+        "Liv Hofman"
+      ]
+    },
+    {
+      "building": "24",
+      "apt": "106",
+      "residents": [
+        "Jim Prinsen",
+        "Roos Prinsen"
+      ]
+    },
+    {
+      "building": "R2",
+      "apt": "208",
+      "residents": [
+        "Lars Vermeulen"
+      ]
+    },
+    {
+      "building": "R4",
+      "apt": "312",
+      "residents": [
+        "Iris Kuipers",
+        "Niek Kuipers"
+      ]
+    },
+    {
+      "building": "R6",
+      "apt": "417",
+      "residents": [
+        "Yara Jacobs",
+        "Omar Jacobs",
+        "Noa Jacobs"
+      ]
+    },
+    {
+      "building": "R8",
+      "apt": "105",
+      "residents": [
+        "Bo Martens"
+      ]
+    },
+    {
+      "building": "R10",
+      "apt": "221",
+      "residents": [
+        "Guus Scholten",
+        "Fien Scholten"
+      ]
+    },
+    {
+      "building": "R12",
+      "apt": "403",
+      "residents": [
+        "Pim Hendriksen",
+        "Elin Hendriksen"
       ]
     }
   ]

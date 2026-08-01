@@ -6,11 +6,10 @@ W repozytorium są tylko pliki stronki (`index.html`, `data.json`). Edycja danyc
 
 ## Nederlandse versie (apart)
 
-Volledig aparte Nederlandse app met eigen bewoners en kamers:
+Aparte Nederlandse app: **zelfde gebouwen** als Oslofjord, andere bewoners/kamers:
 
 - Kaart: [lukaspoloki.github.io/oslofjord-domki/nl/](https://lukaspoloki.github.io/oslofjord-domki/nl/)
 - Bestanden: `nl/index.html`, `nl/data.json` — zie [nl/README.md](nl/README.md)
-- De Poolse Oslofjord-data wordt hier **niet** gebruikt.
 
 ## Adresy budynków
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>Vakantiepark — wie woont waar</title>
+<title>Oslofjord — wie woont waar</title>
 <meta name="theme-color" content="#014d49">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
@@ -1096,12 +1096,12 @@
 <body>
 <div id="app">
   <header>
-    <h1>Vakantiepark — huisjes <small id="brandStreet">Parkweg</small></h1>
+    <h1>Oslofjord — huisjes <small id="brandStreet">Oslofjordveien</small></h1>
     <div class="searchbox">
       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
         <circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path>
       </svg>
-      <input id="search" type="search" placeholder="Zoek… (Jansen, L3, rijtjes)" autocomplete="off">
+      <input id="search" type="search" placeholder="Zoek… (Jansen, R8, rekketun)" autocomplete="off">
       <button class="clear" id="clearBtn" aria-label="Wissen">✕</button>
     </div>
   </header>
@@ -1302,15 +1302,15 @@
     BUILDINGS = data.buildings || {};
     APARTMENTS = data.apartments || [];
     META = {
-      brand: data.meta?.brand || "Vakantiepark — huisjes",
-      street: data.meta?.street || "Parkweg",
-      altStreet: data.meta?.altStreet || "Lanenpad",
-      altPrefix: (data.meta?.altPrefix || "L").toUpperCase(),
-      altKind: data.meta?.altKind || "rijtjes",
-      altKindLabel: data.meta?.altKindLabel || "rijtjeshuis",
+      brand: data.meta?.brand || "Oslofjord — huisjes",
+      street: data.meta?.street || "Oslofjordveien",
+      altStreet: data.meta?.altStreet || "Rekketun",
+      altPrefix: (data.meta?.altPrefix || "R").toUpperCase(),
+      altKind: data.meta?.altKind || "rekketun",
+      altKindLabel: data.meta?.altKindLabel || "rekketun",
       mainKindLabel: data.meta?.mainKindLabel || "huisje",
-      title: data.meta?.title || "Vakantiepark — huisjes",
-      searchHint: data.meta?.searchHint || "Jansen, L3, rijtjes",
+      title: data.meta?.title || "Oslofjord — wie woont waar",
+      searchHint: data.meta?.searchHint || "Jansen, R8, rekketun",
     };
     document.title = META.title.includes("wie woont") ? META.title : `${META.brand} — wie woont waar`;
     const h1 = document.querySelector("header h1");
