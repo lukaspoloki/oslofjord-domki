@@ -6,10 +6,12 @@ W repozytorium są tylko pliki stronki (`index.html`, `data.json`). Edycja danyc
 
 ## Nederlandse versie (apart)
 
-Aparte Nederlandse app: **zelfde gebouwen** als Oslofjord, andere bewoners/kamers:
+Aparte Nederlandse app (zelfde gebouwen, andere bewoners) op een **eigen GitHub Pages-repo**:
 
-- Kaart: [lukaspoloki.github.io/oslofjord-domki/nl/](https://lukaspoloki.github.io/oslofjord-domki/nl/)
-- Bestanden: `nl/index.html`, `nl/data.json` — zie [nl/README.md](nl/README.md)
+- Kaart: [lukaspoloki.github.io/oslofjord-huisjes](https://lukaspoloki.github.io/oslofjord-huisjes/)
+- Repo: [lukaspoloki/oslofjord-huisjes](https://github.com/lukaspoloki/oslofjord-huisjes)
+- Publiceren vanuit deze branch: `./scripts/publish-huisjes.sh` (bestanden in `standalone-huisjes/`)
+- Lokale preview hier: [`nl/`](nl/) — zie [nl/README.md](nl/README.md)
 
 ## Adresy budynków
 
