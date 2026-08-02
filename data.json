@@ -473,6 +473,13 @@
       ]
     },
     {
+      "building": "14",
+      "apt": "704",
+      "residents": [
+        "Marcin Lipowczan"
+      ]
+    },
+    {
       "building": "16",
       "apt": "302",
       "residents": [
@@ -506,13 +513,6 @@
         "Dawid Lipowczan",
         "Jolanta Lipowczan",
         "Marta Lipowczan"
-      ]
-    },
-    {
-      "building": "16",
-      "apt": "510",
-      "residents": [
-        "Marcin Lipowczan"
       ]
     },
     {
