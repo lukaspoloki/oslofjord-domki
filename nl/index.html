@@ -777,7 +777,7 @@
     min-height: 0;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     max-width: 480px;
     width: 100%;
     margin: 0 auto;
@@ -842,27 +842,35 @@
   .share-handle {
     position: absolute;
     z-index: 3;
-    width: 28px; height: 28px;
-    margin: -14px 0 0 -14px;
-    border: 2px solid #fff;
+    width: 44px; height: 44px;
+    margin: -22px 0 0 -22px;
+    border: 3px solid #fff;
     border-radius: 50%;
     background: var(--brand-500);
-    box-shadow: 0 2px 8px rgba(0,0,0,.35);
+    box-shadow: 0 2px 10px rgba(0,0,0,.4);
     cursor: nwse-resize;
     display: none;
     touch-action: none;
     -webkit-tap-highlight-color: transparent;
+  }
+  .share-handle::after {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border-right: 2px solid rgba(255,255,255,.9);
+    border-bottom: 2px solid rgba(255,255,255,.9);
+    border-radius: 0 0 3px 0;
   }
   .share-handle.show { display: block; }
   .share-trash {
     position: absolute;
     right: 10px; top: 10px;
     z-index: 2;
-    width: 44px; height: 44px;
+    width: 48px; height: 48px;
     border: none; border-radius: 50%;
     background: rgba(0,0,0,.55);
     color: #fff;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
     display: none;
     align-items: center; justify-content: center;
@@ -875,20 +883,23 @@
   .share-size {
     display: none;
     gap: 8px;
-    justify-content: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    margin-left: auto;
   }
   .share-size.show { display: flex; }
   .share-size button {
-    width: 48px; height: 40px;
-    border: none; border-radius: 12px;
-    background: rgba(255,255,255,.12);
+    width: 52px; height: 48px;
+    border: none; border-radius: 14px;
+    background: rgba(255,255,255,.14);
     color: #fff;
     font-family: inherit;
-    font-size: 16px; font-weight: 800;
+    font-size: 22px; font-weight: 800;
+    line-height: 1;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  .share-size button:active { background: rgba(255,255,255,.22); }
+  .share-size button:active { background: rgba(255,255,255,.26); }
 
   .share-bring {
     display: flex;
@@ -902,19 +913,21 @@
     text-transform: uppercase;
   }
   .share-bring-chips {
-    display: flex; gap: 6px;
+    display: flex; gap: 8px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     touch-action: pan-x;
+    padding: 1px 0;
   }
   .share-bring-chips::-webkit-scrollbar { display: none; }
   .share-bring-chips button {
     flex: 0 0 auto;
     border: none; border-radius: 999px;
-    padding: 8px 12px;
+    min-height: 44px;
+    padding: 10px 14px;
     font-family: inherit;
-    font-size: 13px; font-weight: 600;
+    font-size: 14px; font-weight: 600;
     background: rgba(255,255,255,.12);
     color: #fff;
     cursor: pointer;
@@ -943,7 +956,7 @@
     flex-direction: column;
     gap: 8px;
     flex-shrink: 0;
-    max-height: 38vh;
+    max-height: 34vh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
@@ -952,12 +965,12 @@
   .share-when-rows {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
   }
   .share-time-row {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     min-width: 0;
   }
   .share-time-row .share-bring-chips {
@@ -966,13 +979,13 @@
   }
   .share-time-row input[type="time"] {
     flex: 0 0 auto;
-    width: 7.2rem;
-    height: 36px;
+    width: 7.6rem;
+    height: 44px;
     border: none;
     border-radius: 999px;
-    padding: 0 10px;
+    padding: 0 12px;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     background: rgba(255,255,255,.12);
     color: #fff;
@@ -988,17 +1001,18 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    min-height: 52px;
+    min-height: 48px;
+    flex-shrink: 0;
   }
   .share-photos {
-    display: flex; gap: 6px; flex-shrink: 0;
+    display: flex; gap: 8px; flex-shrink: 0;
   }
   .share-photos button {
     height: 48px;
     border: none; border-radius: 14px;
-    padding: 0 12px;
+    padding: 0 14px;
     font-family: inherit;
-    font-size: 13px; font-weight: 700;
+    font-size: 14px; font-weight: 700;
     cursor: pointer;
     background: rgba(255,255,255,.12);
     color: #fff;
@@ -1013,16 +1027,17 @@
   .share-photos .danger {
     display: none;
     color: #ffb4b4;
-    padding: 0 10px;
+    padding: 0 12px;
   }
   .share-photos .danger.show { display: block; }
 
   .share-stickers {
-    display: flex; gap: 6px;
+    display: flex; gap: 8px;
     overflow-x: auto;
-    flex: 1;
+    flex: 0 0 auto;
+    width: 100%;
     min-width: 0;
-    padding: 2px 0;
+    padding: 4px 0;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-x: contain;
     scrollbar-width: none;
@@ -1031,29 +1046,29 @@
   .share-stickers::-webkit-scrollbar { display: none; }
   .share-stickers button {
     flex: 0 0 auto;
-    width: 48px; height: 48px;
-    border: none; border-radius: 14px;
-    background: rgba(255,255,255,.12);
-    font-size: 24px;
+    width: 56px; height: 56px;
+    border: none; border-radius: 16px;
+    background: rgba(255,255,255,.14);
+    font-size: 28px;
     cursor: pointer;
     transition: transform .12s ease, background .15s ease;
     -webkit-tap-highlight-color: transparent;
   }
-  .share-stickers button:active { transform: scale(.9); }
+  .share-stickers button:active { transform: scale(.92); background: rgba(255,255,255,.24); }
   .share-stickers button.text-sticker {
     width: auto;
-    min-width: 48px;
-    padding: 0 10px;
-    font-size: 11px; font-weight: 800;
+    min-width: 56px;
+    padding: 0 12px;
+    font-size: 13px; font-weight: 800;
     color: #fff; letter-spacing: .02em;
-    line-height: 1.1;
+    line-height: 1.15;
   }
 
   .share-tip {
     margin: 0;
     text-align: center;
-    font-size: 11px;
-    color: rgba(255,255,255,.5);
+    font-size: 12px;
+    color: rgba(255,255,255,.55);
     min-height: 1.2em;
   }
   .share-send {
@@ -1239,12 +1254,12 @@
           <button type="button" id="shareGallery">Foto</button>
           <button type="button" class="danger" id="shareClearPhoto" aria-label="Foto verwijderen">Verwijder</button>
         </div>
-        <div class="share-stickers" id="shareStickerBar" aria-label="Stickers"></div>
+        <div class="share-size" id="shareSize">
+          <button type="button" id="shareSmaller" aria-label="Kleiner">−</button>
+          <button type="button" id="shareBigger" aria-label="Groter">+</button>
+        </div>
       </div>
-      <div class="share-size" id="shareSize">
-        <button type="button" id="shareSmaller" aria-label="Kleiner">−</button>
-        <button type="button" id="shareBigger" aria-label="Groter">+</button>
-      </div>
+      <div class="share-stickers" id="shareStickerBar" aria-label="Stickers"></div>
       <div class="share-meta">
         <div class="share-bring">
           <label>Wanneer?</label>
@@ -1262,7 +1277,7 @@
           <input id="shareBringInput" type="text" maxlength="60" placeholder="bijv. taart, bloemen, goede zin…" autocomplete="off" enterkeyhint="done">
         </div>
       </div>
-      <p class="share-tip" id="shareTip">Sleep · hoek of +/− voor formaat</p>
+      <p class="share-tip" id="shareTip">Sleep · hoek of +/− voor formaat · prullenbak wist</p>
       <button type="button" class="share-send" id="shareSend">Delen</button>
     </div>
     <div class="share-toast" id="shareToast" role="status"></div>
@@ -2094,6 +2109,13 @@
     return { hw: 80 * s, hh: 80 * s };
   }
 
+  // Minimale raakzone op scherm (~44px), omgerekend naar canvas-eenheden
+  function touchPadCanvas() {
+    const m = canvasMetrics();
+    const scale = m.scale || 1;
+    return Math.max(48, 44 / (2 * scale));
+  }
+
   function isDeletable(item) {
     return item && (item.type === "emoji" || item.type === "text");
   }
@@ -2119,10 +2141,13 @@
     const ox = rect.left - stage.left + (rect.width - dispW) / 2;
     const oy = rect.top - stage.top + (rect.height - dispH) / 2;
     const { hw, hh } = itemHalfSize(s);
-    const left = ox + s.x * scale - hw * scale;
-    const top = oy + s.y * scale - hh * scale;
-    const w = hw * 2 * scale;
-    const h = hh * 2 * scale;
+    let w = hw * 2 * scale;
+    let h = hh * 2 * scale;
+    const minBox = 56;
+    if (w < minBox) w = minBox;
+    if (h < minBox) h = minBox;
+    const left = ox + s.x * scale - w / 2;
+    const top = oy + s.y * scale - h / 2;
     shareSelected.style.left = `${left}px`;
     shareSelected.style.top = `${top}px`;
     shareSelected.style.width = `${w}px`;
@@ -2151,7 +2176,7 @@
     buzz(10);
     shareTip.textContent = "Verwijderd";
     setTimeout(() => {
-      shareTip.textContent = "Sleep · hoek of +/− voor formaat";
+      shareTip.textContent = "Sleep · hoek of +/− voor formaat · prullenbak wist";
     }, 1200);
   }
 
@@ -2486,10 +2511,13 @@
   }
 
   function hitItem(x, y) {
+    const pad = touchPadCanvas();
     for (let i = shareItems.length - 1; i >= 0; i--) {
       const s = shareItems[i];
       const { hw, hh } = itemHalfSize(s);
-      if (Math.abs(x - s.x) <= hw && Math.abs(y - s.y) <= hh) return s;
+      const hitW = Math.max(hw, pad);
+      const hitH = Math.max(hh, pad);
+      if (Math.abs(x - s.x) <= hitW && Math.abs(y - s.y) <= hitH) return s;
     }
     return null;
   }
@@ -2502,11 +2530,12 @@
       label: def.label,
       x: CW * (0.38 + Math.random() * 0.24),
       y: CH * (0.22 + Math.random() * 0.2),
-      scale: 0.9 + Math.random() * 0.25,
-      rot: (Math.random() - 0.5) * 0.35,
+      scale: 1.05 + Math.random() * 0.2,
+      rot: (Math.random() - 0.5) * 0.28,
     };
     shareItems.push(sticker);
     selectItem(sticker.id);
+    shareTip.textContent = "Sleep · hoek of +/− voor formaat · prullenbak wist";
     drawShareCard();
     buzz(10);
     playTone(660, 0.04, "triangle", 0.03);
@@ -2543,7 +2572,7 @@
       sharePhoto = img;
       drawShareCard();
       buzz(12);
-      shareTip.textContent = "Sleep · hoek of +/− voor formaat";
+      shareTip.textContent = "Sleep · hoek of +/− voor formaat · prullenbak wist";
     } catch {
       // fallback bez createImageBitmap
       const url = URL.createObjectURL(file);
@@ -2562,7 +2591,7 @@
       } finally {
         URL.revokeObjectURL(url);
       }
-      shareTip.textContent = "Sleep · hoek of +/− voor formaat";
+      shareTip.textContent = "Sleep · hoek of +/− voor formaat · prullenbak wist";
     } finally {
       shareBusy = false;
       shareSend.disabled = false;
@@ -2612,7 +2641,7 @@
     shareStudio.classList.add("open");
     shareStudio.setAttribute("aria-hidden", "false");
     setShareScrollLock(true);
-    shareTip.textContent = "Sleep · hoek of +/− voor formaat";
+    shareTip.textContent = "Sleep · hoek of +/− voor formaat · prullenbak wist";
     shareSend.disabled = false;
     shareSend.textContent = isInviteMode() ? "Stuur uitnodiging" : "Delen";
     shareBringChips.querySelectorAll("button").forEach(btn => btn.classList.remove("on"));
@@ -2800,7 +2829,7 @@
         deleteSelectedItem();
       }
       shareDrag = null;
-    }, 520);
+    }, 700);
   }
 
   function onSharePointerMove(e) {
@@ -2837,7 +2866,7 @@
     e.preventDefault();
     const dx = e.clientX - shareDrag.startX;
     const dy = e.clientY - shareDrag.startY;
-    if (Math.hypot(dx, dy) > 8) {
+    if (Math.hypot(dx, dy) > 14) {
       shareMoved = true;
       clearLongPress();
     }
@@ -2941,7 +2970,7 @@
     drawShareCard();
     shareTip.textContent = "Foto verwijderd";
     setTimeout(() => {
-      shareTip.textContent = "Sleep · hoek of +/− voor formaat";
+      shareTip.textContent = "Sleep · hoek of +/− voor formaat · prullenbak wist";
     }, 1000);
   });
   shareTrash.addEventListener("click", e => {
