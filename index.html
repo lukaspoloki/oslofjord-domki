@@ -764,21 +764,22 @@
     display: none;
     flex-direction: column;
     padding:
-      calc(env(safe-area-inset-top, 0px) + 8px)
-      12px
-      calc(env(safe-area-inset-bottom, 0px) + 10px);
+      calc(env(safe-area-inset-top, 0px) + 6px)
+      8px
+      calc(env(safe-area-inset-bottom, 0px) + 8px);
     overscroll-behavior: none;
   }
   #shareStudio.open { display: flex; animation: overlay-in .22s ease; }
   #shareStudio.closing { animation: overlay-out .18s ease forwards; }
 
   .share-panel {
+    position: relative;
     flex: 1;
     min-height: 0;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    max-width: 480px;
+    max-width: 520px;
     width: 100%;
     margin: 0 auto;
   }
@@ -788,6 +789,7 @@
     align-items: center;
     color: #fff;
     min-height: 44px;
+    flex-shrink: 0;
   }
   .share-top h2 {
     margin: 0; font-size: 16px; font-weight: 700;
@@ -808,7 +810,7 @@
     position: relative;
     flex: 1 1 auto;
     min-height: 0;
-    border-radius: 16px;
+    border-radius: 18px;
     overflow: hidden;
     background: #0d2a28;
     box-shadow: 0 12px 32px rgba(0,0,0,.45);
@@ -842,27 +844,35 @@
   .share-handle {
     position: absolute;
     z-index: 3;
-    width: 28px; height: 28px;
-    margin: -14px 0 0 -14px;
-    border: 2px solid #fff;
+    width: 44px; height: 44px;
+    margin: -22px 0 0 -22px;
+    border: 3px solid #fff;
     border-radius: 50%;
     background: var(--brand-500);
-    box-shadow: 0 2px 8px rgba(0,0,0,.35);
+    box-shadow: 0 2px 10px rgba(0,0,0,.4);
     cursor: nwse-resize;
     display: none;
     touch-action: none;
     -webkit-tap-highlight-color: transparent;
+  }
+  .share-handle::after {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border-right: 2px solid rgba(255,255,255,.9);
+    border-bottom: 2px solid rgba(255,255,255,.9);
+    border-radius: 0 0 3px 0;
   }
   .share-handle.show { display: block; }
   .share-trash {
     position: absolute;
     right: 10px; top: 10px;
     z-index: 2;
-    width: 44px; height: 44px;
+    width: 48px; height: 48px;
     border: none; border-radius: 50%;
     background: rgba(0,0,0,.55);
     color: #fff;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
     display: none;
     align-items: center; justify-content: center;
@@ -873,27 +883,190 @@
   .share-trash:active { transform: scale(.92); background: rgba(180,40,40,.85); }
 
   .share-size {
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    transform: translateX(-50%);
+    z-index: 3;
     display: none;
     gap: 8px;
-    justify-content: center;
+    padding: 6px;
+    border-radius: 18px;
+    background: rgba(0,0,0,.45);
+    backdrop-filter: blur(8px);
   }
   .share-size.show { display: flex; }
   .share-size button {
-    width: 48px; height: 40px;
-    border: none; border-radius: 12px;
-    background: rgba(255,255,255,.12);
+    width: 52px; height: 48px;
+    border: none; border-radius: 14px;
+    background: rgba(255,255,255,.16);
     color: #fff;
     font-family: inherit;
-    font-size: 16px; font-weight: 800;
+    font-size: 22px; font-weight: 800;
+    line-height: 1;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  .share-size button:active { background: rgba(255,255,255,.22); }
+  .share-size button:active { background: rgba(255,255,255,.28); }
+
+  .share-tip {
+    position: absolute;
+    left: 12px; right: 12px;
+    bottom: 68px;
+    z-index: 2;
+    margin: 0;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,.78);
+    text-shadow: 0 1px 4px rgba(0,0,0,.55);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .2s ease;
+  }
+  .share-tip.show { opacity: 1; }
+
+  .share-dock {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .share-dock button {
+    height: 52px;
+    border: none;
+    border-radius: 16px;
+    background: rgba(255,255,255,.12);
+    color: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background .15s ease, transform .12s ease;
+  }
+  .share-dock button:active { transform: scale(.96); background: rgba(255,255,255,.2); }
+  .share-dock button.on {
+    background: rgba(62, 159, 151, .42);
+    box-shadow: inset 0 0 0 1.5px rgba(159, 217, 211, .65);
+  }
+
+  .share-send {
+    border: none; border-radius: 999px;
+    width: 100%;
+    min-height: 52px;
+    padding: 14px 16px;
+    font-family: inherit; font-size: 17px; font-weight: 700;
+    cursor: pointer;
+    background: linear-gradient(160deg, #7a4a36, #3e2418);
+    color: #f5e6d3;
+    box-shadow: 0 6px 20px rgba(0,0,0,.35);
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .12s ease, opacity .15s ease;
+    flex-shrink: 0;
+  }
+  .share-send:active { transform: scale(.98); }
+  .share-send:disabled { opacity: .55; pointer-events: none; }
+
+  .share-sheet {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    z-index: 6;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    max-height: min(48vh, 420px);
+    padding: 12px 12px calc(env(safe-area-inset-bottom, 0px) + 12px);
+    border-radius: 22px 22px 0 0;
+    background: rgba(8, 28, 27, .97);
+    box-shadow: 0 -10px 36px rgba(0,0,0,.45);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    overscroll-behavior: contain;
+  }
+  .share-sheet.open { display: flex; animation: share-sheet-in .2s ease; }
+  @keyframes share-sheet-in {
+    from { transform: translateY(18px); opacity: .5; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .share-sheet-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    color: #fff;
+  }
+  .share-sheet-head strong {
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .share-sheet-head .done {
+    height: 40px;
+    border: none;
+    border-radius: 999px;
+    padding: 0 16px;
+    background: rgba(62, 159, 151, .35);
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .share-sheet-head .done:active { background: rgba(62, 159, 151, .5); }
+  .share-sheet-panel { display: none; min-height: 0; overflow: auto; }
+  .share-sheet-panel.open { display: block; }
+
+  .share-photos {
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .share-photos button {
+    height: 48px;
+    border: none; border-radius: 14px;
+    padding: 0 16px;
+    font-family: inherit;
+    font-size: 14px; font-weight: 700;
+    cursor: pointer;
+    background: rgba(255,255,255,.12);
+    color: #fff;
+    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
+  }
+  .share-photos button:active { transform: scale(.94); background: rgba(255,255,255,.2); }
+  .share-photos .danger {
+    display: none;
+    color: #ffb4b4;
+  }
+  .share-photos .danger.show { display: block; }
+
+  .share-stickers {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding: 2px 0 4px;
+  }
+  .share-stickers button {
+    flex: 0 0 auto;
+    width: 56px; height: 56px;
+    border: none; border-radius: 16px;
+    background: rgba(255,255,255,.14);
+    font-size: 28px;
+    cursor: pointer;
+    transition: transform .12s ease, background .15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .share-stickers button:active { transform: scale(.92); background: rgba(255,255,255,.24); }
+  .share-stickers button.text-sticker {
+    width: auto;
+    min-width: 56px;
+    padding: 0 12px;
+    font-size: 13px; font-weight: 800;
+    color: #fff; letter-spacing: .02em;
+    line-height: 1.15;
+  }
 
   .share-bring {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
   }
   .share-bring label {
     font-size: 12px; font-weight: 700;
@@ -902,19 +1075,15 @@
     text-transform: uppercase;
   }
   .share-bring-chips {
-    display: flex; gap: 6px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    touch-action: pan-x;
+    display: flex; flex-wrap: wrap; gap: 8px;
   }
-  .share-bring-chips::-webkit-scrollbar { display: none; }
   .share-bring-chips button {
     flex: 0 0 auto;
     border: none; border-radius: 999px;
-    padding: 8px 12px;
+    min-height: 44px;
+    padding: 10px 14px;
     font-family: inherit;
-    font-size: 13px; font-weight: 600;
+    font-size: 14px; font-weight: 600;
     background: rgba(255,255,255,.12);
     color: #fff;
     cursor: pointer;
@@ -938,27 +1107,17 @@
   }
   .share-bring input::placeholder { color: rgba(255,255,255,.4); }
 
-  .share-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex-shrink: 0;
-    max-height: 38vh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-    padding-right: 2px;
-  }
   .share-when-rows {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 10px;
   }
   .share-time-row {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     min-width: 0;
+    flex-wrap: wrap;
   }
   .share-time-row .share-bring-chips {
     flex: 1;
@@ -966,13 +1125,13 @@
   }
   .share-time-row input[type="time"] {
     flex: 0 0 auto;
-    width: 7.2rem;
-    height: 36px;
+    width: 7.6rem;
+    height: 44px;
     border: none;
     border-radius: 999px;
-    padding: 0 10px;
+    padding: 0 12px;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     background: rgba(255,255,255,.12);
     color: #fff;
@@ -983,94 +1142,6 @@
     background: rgba(62, 159, 151, .4);
     box-shadow: inset 0 0 0 1.5px rgba(159, 217, 211, .65);
   }
-
-  .share-toolbar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    min-height: 52px;
-  }
-  .share-photos {
-    display: flex; gap: 6px; flex-shrink: 0;
-  }
-  .share-photos button {
-    height: 48px;
-    border: none; border-radius: 14px;
-    padding: 0 12px;
-    font-family: inherit;
-    font-size: 13px; font-weight: 700;
-    cursor: pointer;
-    background: rgba(255,255,255,.12);
-    color: #fff;
-    -webkit-tap-highlight-color: transparent;
-    white-space: nowrap;
-  }
-  .share-photos button:active { transform: scale(.94); background: rgba(255,255,255,.2); }
-  .share-photos button.on {
-    background: rgba(62, 159, 151, .35);
-    box-shadow: inset 0 0 0 1.5px rgba(159, 217, 211, .6);
-  }
-  .share-photos .danger {
-    display: none;
-    color: #ffb4b4;
-    padding: 0 10px;
-  }
-  .share-photos .danger.show { display: block; }
-
-  .share-stickers {
-    display: flex; gap: 6px;
-    overflow-x: auto;
-    flex: 1;
-    min-width: 0;
-    padding: 2px 0;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-x: contain;
-    scrollbar-width: none;
-    touch-action: pan-x;
-  }
-  .share-stickers::-webkit-scrollbar { display: none; }
-  .share-stickers button {
-    flex: 0 0 auto;
-    width: 48px; height: 48px;
-    border: none; border-radius: 14px;
-    background: rgba(255,255,255,.12);
-    font-size: 24px;
-    cursor: pointer;
-    transition: transform .12s ease, background .15s ease;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .share-stickers button:active { transform: scale(.9); }
-  .share-stickers button.text-sticker {
-    width: auto;
-    min-width: 48px;
-    padding: 0 10px;
-    font-size: 11px; font-weight: 800;
-    color: #fff; letter-spacing: .02em;
-    line-height: 1.1;
-  }
-
-  .share-tip {
-    margin: 0;
-    text-align: center;
-    font-size: 11px;
-    color: rgba(255,255,255,.5);
-    min-height: 1.2em;
-  }
-  .share-send {
-    border: none; border-radius: 999px;
-    width: 100%;
-    min-height: 52px;
-    padding: 14px 16px;
-    font-family: inherit; font-size: 17px; font-weight: 700;
-    cursor: pointer;
-    background: linear-gradient(160deg, #7a4a36, #3e2418);
-    color: #f5e6d3;
-    box-shadow: 0 6px 20px rgba(0,0,0,.35);
-    -webkit-tap-highlight-color: transparent;
-    transition: transform .12s ease, opacity .15s ease;
-  }
-  .share-send:active { transform: scale(.98); }
-  .share-send:disabled { opacity: .55; pointer-events: none; }
 
   .share-toast {
     position: absolute;
@@ -1232,38 +1303,54 @@
         <div class="share-selected" id="shareSelected" aria-hidden="true"></div>
         <button type="button" class="share-handle" id="shareHandle" aria-label="Zmień rozmiar"></button>
         <button type="button" class="share-trash" id="shareTrash" aria-label="Usuń">✕</button>
-      </div>
-      <div class="share-toolbar">
-        <div class="share-photos">
-          <button type="button" id="shareCamera">Aparat</button>
-          <button type="button" id="shareGallery">Foto</button>
-          <button type="button" class="danger" id="shareClearPhoto" aria-label="Usuń zdjęcie">Usuń</button>
+        <div class="share-size" id="shareSize">
+          <button type="button" id="shareSmaller" aria-label="Mniejszy">−</button>
+          <button type="button" id="shareBigger" aria-label="Większy">+</button>
         </div>
-        <div class="share-stickers" id="shareStickerBar" aria-label="Stickery"></div>
+        <p class="share-tip" id="shareTip">Przesuń · +/− · kosz</p>
       </div>
-      <div class="share-size" id="shareSize">
-        <button type="button" id="shareSmaller" aria-label="Mniejszy">−</button>
-        <button type="button" id="shareBigger" aria-label="Większy">+</button>
+      <div class="share-dock" id="shareDock" role="toolbar" aria-label="Narzędzia">
+        <button type="button" data-sheet="photo" id="shareDockPhoto">Foto</button>
+        <button type="button" data-sheet="stickers" id="shareDockStickers">Stickery</button>
+        <button type="button" data-sheet="when" id="shareDockWhen">Kiedy</button>
+        <button type="button" data-sheet="bring" id="shareDockBring">Przynieś</button>
       </div>
-      <div class="share-meta">
-        <div class="share-bring">
-          <label>Kiedy?</label>
-          <div class="share-when-rows">
-            <div class="share-bring-chips" id="shareDayChips" aria-label="Dzień"></div>
-            <div class="share-time-row">
-              <div class="share-bring-chips" id="shareTimeChips" aria-label="Godzina"></div>
-              <input id="shareTimeCustom" type="time" aria-label="Własna godzina" title="Własna godzina">
+      <button type="button" class="share-send" id="shareSend">Udostępnij</button>
+      <div class="share-sheet" id="shareSheet" aria-hidden="true">
+        <div class="share-sheet-head">
+          <strong id="shareSheetTitle">Narzędzia</strong>
+          <button type="button" class="done" id="shareSheetClose">Gotowe</button>
+        </div>
+        <div class="share-sheet-panel" data-panel="photo" id="sharePanelPhoto">
+          <div class="share-photos">
+            <button type="button" id="shareCamera">Aparat</button>
+            <button type="button" id="shareGallery">Galeria</button>
+            <button type="button" class="danger" id="shareClearPhoto" aria-label="Usuń zdjęcie">Usuń zdjęcie</button>
+          </div>
+        </div>
+        <div class="share-sheet-panel" data-panel="stickers" id="sharePanelStickers">
+          <div class="share-stickers" id="shareStickerBar" aria-label="Stickery"></div>
+        </div>
+        <div class="share-sheet-panel" data-panel="when" id="sharePanelWhen">
+          <div class="share-bring">
+            <label>Kiedy?</label>
+            <div class="share-when-rows">
+              <div class="share-bring-chips" id="shareDayChips" aria-label="Dzień"></div>
+              <div class="share-time-row">
+                <div class="share-bring-chips" id="shareTimeChips" aria-label="Godzina"></div>
+                <input id="shareTimeCustom" type="time" aria-label="Własna godzina" title="Własna godzina">
+              </div>
             </div>
           </div>
         </div>
-        <div class="share-bring">
-          <label for="shareBringInput" id="shareBringLabel">Co przynoszę?</label>
-          <div class="share-bring-chips" id="shareBringChips"></div>
-          <input id="shareBringInput" type="text" maxlength="60" placeholder="np. ciasto, kwiaty, dobry humor…" autocomplete="off" enterkeyhint="done">
+        <div class="share-sheet-panel" data-panel="bring" id="sharePanelBring">
+          <div class="share-bring">
+            <label for="shareBringInput" id="shareBringLabel">Co przynoszę?</label>
+            <div class="share-bring-chips" id="shareBringChips"></div>
+            <input id="shareBringInput" type="text" maxlength="60" placeholder="np. ciasto, kwiaty, dobry humor…" autocomplete="off" enterkeyhint="done">
+          </div>
         </div>
       </div>
-      <p class="share-tip" id="shareTip">Przeciągnij · rogiem lub +/− zmień rozmiar</p>
-      <button type="button" class="share-send" id="shareSend">Udostępnij</button>
     </div>
     <div class="share-toast" id="shareToast" role="status"></div>
     <input type="file" id="shareFileCam" accept="image/*" capture="environment" hidden>
@@ -1901,6 +1988,19 @@
   const shareDayChips = document.getElementById("shareDayChips");
   const shareTimeChips = document.getElementById("shareTimeChips");
   const shareTimeCustom = document.getElementById("shareTimeCustom");
+  const shareSheet = document.getElementById("shareSheet");
+  const shareSheetTitle = document.getElementById("shareSheetTitle");
+  const shareSheetClose = document.getElementById("shareSheetClose");
+  const shareDock = document.getElementById("shareDock");
+  const shareDockBring = document.getElementById("shareDockBring");
+  const SHARE_SHEET_TITLES = {
+    photo: "Zdjęcie",
+    stickers: "Stickery",
+    when: "Kiedy",
+    bring: "Przynieś",
+  };
+  let shareTipHideTimer = 0;
+  let shareActiveSheet = "";
   const CW = shareCanvas.width;
   const CH = shareCanvas.height;
   const PHOTO_MAX = 1600;
@@ -2039,6 +2139,41 @@
     shareToastTimer = setTimeout(() => shareToast.classList.remove("show"), 1800);
   }
 
+  function showShareTip(msg, ms = 1600) {
+    shareTip.textContent = msg;
+    shareTip.classList.add("show");
+    clearTimeout(shareTipHideTimer);
+    shareTipHideTimer = setTimeout(() => shareTip.classList.remove("show"), ms);
+  }
+
+  function closeShareSheet() {
+    shareActiveSheet = "";
+    shareSheet.classList.remove("open");
+    shareSheet.setAttribute("aria-hidden", "true");
+    shareSheet.querySelectorAll(".share-sheet-panel").forEach(p => p.classList.remove("open"));
+    shareDock.querySelectorAll("button[data-sheet]").forEach(b => b.classList.remove("on"));
+  }
+
+  function openShareSheet(name) {
+    if (!SHARE_SHEET_TITLES[name]) return;
+    if (shareActiveSheet === name) {
+      closeShareSheet();
+      return;
+    }
+    shareActiveSheet = name;
+    shareSheet.classList.add("open");
+    shareSheet.setAttribute("aria-hidden", "false");
+    shareSheetTitle.textContent = name === "bring"
+      ? (isInviteMode() ? "Co przynieść?" : "Co przynoszę?")
+      : SHARE_SHEET_TITLES[name];
+    shareSheet.querySelectorAll(".share-sheet-panel").forEach(p => {
+      p.classList.toggle("open", p.dataset.panel === name);
+    });
+    shareDock.querySelectorAll("button[data-sheet]").forEach(b => {
+      b.classList.toggle("on", b.dataset.sheet === name);
+    });
+  }
+
   function setShareScrollLock(on) {
     document.documentElement.style.overflow = on ? "hidden" : "";
     document.body.style.overflow = on ? "hidden" : "";
@@ -2061,6 +2196,13 @@
       return { hw: 300 * s, hh: 60 * s };
     }
     return { hw: 80 * s, hh: 80 * s };
+  }
+
+  // Minimalny obszar trafienia na ekranie (~44px), przeliczony na jednostki canvasu
+  function touchPadCanvas() {
+    const m = canvasMetrics();
+    const scale = m.scale || 1;
+    return Math.max(48, 44 / (2 * scale));
   }
 
   function isDeletable(item) {
@@ -2088,10 +2230,13 @@
     const ox = rect.left - stage.left + (rect.width - dispW) / 2;
     const oy = rect.top - stage.top + (rect.height - dispH) / 2;
     const { hw, hh } = itemHalfSize(s);
-    const left = ox + s.x * scale - hw * scale;
-    const top = oy + s.y * scale - hh * scale;
-    const w = hw * 2 * scale;
-    const h = hh * 2 * scale;
+    let w = hw * 2 * scale;
+    let h = hh * 2 * scale;
+    const minBox = 56;
+    if (w < minBox) w = minBox;
+    if (h < minBox) h = minBox;
+    const left = ox + s.x * scale - w / 2;
+    const top = oy + s.y * scale - h / 2;
     shareSelected.style.left = `${left}px`;
     shareSelected.style.top = `${top}px`;
     shareSelected.style.width = `${w}px`;
@@ -2118,10 +2263,7 @@
     drawShareCard();
     updateSelectionUI();
     buzz(10);
-    shareTip.textContent = "Usunięto";
-    setTimeout(() => {
-      shareTip.textContent = "Przeciągnij · rogiem lub +/− zmień rozmiar";
-    }, 1200);
+    showShareTip("Usunięto");
   }
 
   function nudgeSelectedScale(factor) {
@@ -2455,10 +2597,13 @@
   }
 
   function hitItem(x, y) {
+    const pad = touchPadCanvas();
     for (let i = shareItems.length - 1; i >= 0; i--) {
       const s = shareItems[i];
       const { hw, hh } = itemHalfSize(s);
-      if (Math.abs(x - s.x) <= hw && Math.abs(y - s.y) <= hh) return s;
+      const hitW = Math.max(hw, pad);
+      const hitH = Math.max(hh, pad);
+      if (Math.abs(x - s.x) <= hitW && Math.abs(y - s.y) <= hitH) return s;
     }
     return null;
   }
@@ -2471,14 +2616,15 @@
       label: def.label,
       x: CW * (0.38 + Math.random() * 0.24),
       y: CH * (0.22 + Math.random() * 0.2),
-      scale: 0.9 + Math.random() * 0.25,
-      rot: (Math.random() - 0.5) * 0.35,
+      scale: 1.05 + Math.random() * 0.2,
+      rot: (Math.random() - 0.5) * 0.28,
     };
     shareItems.push(sticker);
     selectItem(sticker.id);
     drawShareCard();
     buzz(10);
     playTone(660, 0.04, "triangle", 0.03);
+    showShareTip("Przesuń · +/− · kosz");
   }
 
   async function loadSharePhoto(file) {
@@ -2490,7 +2636,7 @@
     }
     shareBusy = true;
     shareSend.disabled = true;
-    shareTip.textContent = "Wczytuję zdjęcie…";
+    showShareTip("Wczytuję zdjęcie…", 4000);
     try {
       const bmp = await createImageBitmap(file);
       const scale = Math.min(1, PHOTO_MAX / Math.max(bmp.width, bmp.height));
@@ -2511,8 +2657,10 @@
       });
       sharePhoto = img;
       drawShareCard();
+      updatePhotoChrome();
       buzz(12);
-      shareTip.textContent = "Przeciągnij · rogiem lub +/− zmień rozmiar";
+      showShareTip("Zdjęcie dodane");
+      closeShareSheet();
     } catch {
       // fallback bez createImageBitmap
       const url = URL.createObjectURL(file);
@@ -2525,13 +2673,15 @@
         });
         sharePhoto = img;
         drawShareCard();
+        updatePhotoChrome();
         buzz(12);
+        showShareTip("Zdjęcie dodane");
+        closeShareSheet();
       } catch {
         showShareToast("Nie udało się wczytać zdjęcia");
       } finally {
         URL.revokeObjectURL(url);
       }
-      shareTip.textContent = "Przeciągnij · rogiem lub +/− zmień rozmiar";
     } finally {
       shareBusy = false;
       shareSend.disabled = false;
@@ -2581,17 +2731,21 @@
     shareStudio.classList.add("open");
     shareStudio.setAttribute("aria-hidden", "false");
     setShareScrollLock(true);
-    shareTip.textContent = "Przeciągnij · rogiem lub +/− zmień rozmiar";
+    shareDockBring.textContent = isInviteMode() ? "Przynieś" : "Przynoszę";
+    closeShareSheet();
     shareSend.disabled = false;
     shareSend.textContent = isInviteMode() ? "Wyślij zaproszenie" : "Udostępnij";
     shareBringChips.querySelectorAll("button").forEach(btn => btn.classList.remove("on"));
     drawShareCard();
     selectItem(null);
+    showShareTip("Duży podgląd · narzędzia na dole", 2200);
     requestAnimationFrame(() => updateSelectionUI());
   }
 
   function closeShareStudio() {
     clearTimeout(shareLongTimer);
+    clearTimeout(shareTipHideTimer);
+    closeShareSheet();
     sharePointers.clear();
     sharePinch = null;
     shareResize = null;
@@ -2632,6 +2786,7 @@
 
   async function sendShareInvite() {
     if (!shareSubject || shareBusy) return;
+    closeShareSheet();
     shareBringInput.blur();
     shareBusy = true;
     shareSend.disabled = true;
@@ -2723,6 +2878,8 @@
   function onSharePointerDown(e) {
     if (!shareStudio.classList.contains("open")) return;
     if (e.target === shareTrash || e.target === shareHandle) return;
+    if (e.target.closest("#shareSize")) return;
+    if (shareActiveSheet) closeShareSheet();
     sharePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
 
     if (sharePointers.size === 2) {
@@ -2769,7 +2926,7 @@
         deleteSelectedItem();
       }
       shareDrag = null;
-    }, 520);
+    }, 700);
   }
 
   function onSharePointerMove(e) {
@@ -2806,7 +2963,7 @@
     e.preventDefault();
     const dx = e.clientX - shareDrag.startX;
     const dy = e.clientY - shareDrag.startY;
-    if (Math.hypot(dx, dy) > 8) {
+    if (Math.hypot(dx, dy) > 14) {
       shareMoved = true;
       clearLongPress();
     }
@@ -2894,8 +3051,21 @@
     setShareTime(v, true);
   });
 
-  document.getElementById("shareSmaller").addEventListener("click", () => nudgeSelectedScale(0.88));
-  document.getElementById("shareBigger").addEventListener("click", () => nudgeSelectedScale(1.14));
+  for (const id of ["shareSmaller", "shareBigger"]) {
+    const btn = document.getElementById(id);
+    btn.addEventListener("pointerdown", e => e.stopPropagation());
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+      nudgeSelectedScale(id === "shareSmaller" ? 0.88 : 1.14);
+    });
+  }
+
+  shareDock.addEventListener("click", e => {
+    const btn = e.target.closest("button[data-sheet]");
+    if (!btn) return;
+    openShareSheet(btn.dataset.sheet);
+  });
+  shareSheetClose.addEventListener("click", () => closeShareSheet());
 
   shareCameraBtn.addEventListener("click", () => {
     if (shareBusy) return;
@@ -2908,10 +3078,8 @@
   shareClearPhoto.addEventListener("click", () => {
     sharePhoto = null;
     drawShareCard();
-    shareTip.textContent = "Zdjęcie usunięte";
-    setTimeout(() => {
-      shareTip.textContent = "Przeciągnij · rogiem lub +/− zmień rozmiar";
-    }, 1000);
+    updatePhotoChrome();
+    showShareTip("Zdjęcie usunięte");
   });
   shareTrash.addEventListener("click", e => {
     e.stopPropagation();
