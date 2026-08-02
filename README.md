@@ -4,7 +4,6 @@ Publiczna mapa mieszkańców: [lukaspoloki.github.io/oslofjord-domki](https://lu
 
 W repozytorium są tylko pliki stronki (`index.html`, `data.json`). Edycja danych odbywa się botem Telegram (poza gitem).
 
-
 ## Adresy budynków
 
 - **Domki** (Oslofjordveien) — zwykły numer, np. `3/203`, `8/208`, `24/502`
