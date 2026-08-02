@@ -1824,8 +1824,15 @@
     coffeeOverlay.classList.add("closing");
     setTimeout(() => {
       coffeeOverlay.classList.remove("open", "closing");
-      resetCoffeeModal();
-      coffeeActions.classList.remove("ready");
+      // Zachowaj wynik losowania — „Pokaż na mapie” / Zamknij nie mają go kasować.
+      // Nowy pick dopiero po kolejnym „Losuj”.
+      coffeeCard.classList.remove("spinning");
+      coffeeBurst.innerHTML = "";
+      setCoffeeBusy(false);
+      if (!coffeePick) {
+        resetCoffeeModal();
+        coffeeActions.classList.remove("ready");
+      }
     }, 200);
   }
 
@@ -1955,7 +1962,8 @@
     input.blur();
     ensureAudio();
     coffeeOverlay.classList.remove("closing");
-    resetCoffeeModal();
+    // Przywróć ostatni pick (np. po „Pokaż na mapie”); idle tylko gdy brak wyniku.
+    if (!coffeePick) resetCoffeeModal();
     coffeeOverlay.classList.add("open");
     coffeeCard.style.animation = "none";
     void coffeeCard.offsetWidth;
